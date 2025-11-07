@@ -589,57 +589,57 @@ body.page-jao .btn-floating:hover {
 /* PÁGINA MACACOS              */
 /* =========================== */
 
-body.page-macacos {
+body.page-macaco {
   background: linear-gradient(135deg, #fffaf0, #f0fff6);
   color: #222;
   font-family: 'Roboto', sans-serif;
 }
 
 /* Header e footer com cores dos Macacos */
-body.page-macacos .site-header {
+body.page-macaco .site-header {
   background: linear-gradient(135deg, #8B5E3C 0%, #A0714D 100%);
 }
 
-body.page-macacos .site-footer {
+body.page-macaco .site-footer {
   background: linear-gradient(135deg, #6B4423 0%, #8B5E3C 100%);
 }
 
-body.page-macacos .btn-floating {
+body.page-macaco .btn-floating {
   background: #8B5E3C;
 }
 
-body.page-macacos .btn-floating:hover {
+body.page-macaco .btn-floating:hover {
   background: #6B4423;
   box-shadow: 0 8px 20px rgba(192, 135, 92, 0.847);
 }
 
-.macacos-hero {
+.macaco-hero {
   padding: 50px var(--gap);
   text-align: center;
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
-.macacos-hero h1 {
+.macaco-hero h1 {
   font-size: 3rem;
   color: #6B4423;
   margin-bottom: 15px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-.macacos-hero p {
+.macaco-hero p {
   font-size: 1.3rem;
   margin-bottom: 30px;
   color: #8B5E3C;
 }
 
-.macacos-content {
+.macaco-content {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--gap);
 }
 
-.macacos-content h2 {
+.macaco-content h2 {
   font-size: 2.2rem;
   color: #6B4423;
   text-align: center;
@@ -839,4 +839,5 @@ body.page-mensagem .btn-floating:hover {
     padding: 8px 15px;
     font-size: 0.85rem;
   }
+
 }
