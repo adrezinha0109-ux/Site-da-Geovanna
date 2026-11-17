@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Presente da Geo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Anton&family=Space+Grotesk:wght@500;700&family=Bebas+Neue&family=Fredoka:wght@400;600&family=Great+Vibes&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+/* ===== BASE / TEMAS ===== */
+:root{--r:20px;--max:1100px;--font:'Poppins',system-ui,sans-serif;--head:'Poppins',sans-serif;
+ --bg:#faf5ff;--fg:#2a1740;--muted:#6f5c85;--card:rgba(255,255,255,.7);--line:rgba(120,70,170,.18);
+ --a:#9b59b6;--b:#ff3ea5;--on:#fff;--grad:linear-gradient(135deg,var(--a),var(--b));--glow:rgba(155,89,182,.35)}
+html[data-theme=dark]{--bg:#120a1f;--fg:#f3e9ff;--muted:#b9a5d4;--card:rgba(40,24,66,.6);--line:rgba(190,150,255,.18);--glow:rgba(179,136,255,.3)}
+body.page-ceara{--bg:#fff;--fg:#111;--muted:#555;--card:#f2f2f2;--line:#ddd;--a:#111;--b:#777;--on:#fff;--head:'Anton',sans-serif;--glow:rgba(0,0,0,.25)}
+html[data-theme=dark] body.page-ceara{--bg:#0a0a0a;--fg:#f4f4f4;--muted:#aaa;--card:#161616;--line:#2c2c2c;--a:#fff;--b:#999;--on:#000;--glow:rgba(255,255,255,.2)}
+body.page-jao{--bg:#eaf2ff;--fg:#0b1b3f;--muted:#4a5d86;--card:rgba(255,255,255,.75);--line:rgba(10,61,154,.18);--a:#0a3d9a;--b:#38b6ff;--head:'Space Grotesk',sans-serif;--glow:rgba(10,61,154,.3)}
+html[data-theme=dark] body.page-jao{--bg:#050c22;--fg:#e6f0ff;--muted:#8fa6d4;--card:rgba(14,30,80,.6);--line:rgba(90,150,255,.2);--a:#4a8bff;--b:#38e0ff}
+body.page-bk{--bg:#f3ede0;--fg:#17110a;--muted:#6a5a40;--card:#fffaf0;--line:#d9ccb0;--a:#b4161b;--b:#e0a100;--head:'Bebas Neue',sans-serif;--glow:rgba(180,22,27,.3)}
+html[data-theme=dark] body.page-bk{--bg:#0c0a07;--fg:#f6ecd6;--muted:#b3a27f;--card:#17130d;--line:#2e261a;--a:#f0b429;--b:#e5383b;--on:#111;--glow:rgba(240,180,41,.3)}
+body.page-macacos{--bg:#fbf3e6;--fg:#3b2412;--muted:#7a5a3d;--card:#fffaf0;--line:#e5d2b3;--a:#8b5e3c;--b:#3fa34d;--head:'Fredoka',sans-serif;--glow:rgba(139,94,60,.3)}
+html[data-theme=dark] body.page-macacos{--bg:#14100a;--fg:#f6e8d2;--muted:#c2a47f;--card:#21180e;--line:#3a2b18;--a:#d99a5b;--b:#6fcf7d;--on:#1a1208}
+body.page-mensagem{--bg:#fff0f6;--fg:#4a1d3a;--muted:#8a5a7a;--card:rgba(255,255,255,.75);--line:rgba(255,62,165,.25);--a:#ff3ea5;--b:#b388ff;--head:'Great Vibes',cursive}
+html[data-theme=dark] body.page-mensagem{--bg:#1b0d18;--fg:#ffe3f1;--muted:#d6a3c1;--card:rgba(60,25,50,.6);--line:rgba(255,120,190,.25)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.65;min-height:100vh;overflow-x:hidden;transition:background .4s,color .4s;position:relative}
+body::before,body::after{content:"";position:fixed;z-index:-1;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.28;animation:flutua 18s ease-in-out infinite alternate;pointer-events:none}
+body::before{background:var(--a);top:-20vmax;left:-15vmax}
+body::after{background:var(--b);bottom:-25vmax;right:-15vmax;animation-delay:-9s}
+@keyframes flutua{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+h1,h2,h3{font-family:var(--head);line-height:1.15}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:auto;padding:0 22px}
+section{padding:36px 0}
+.sec-title{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:8px}
+.sec-sub{color:var(--muted);margin-bottom:26px}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ===== NAV ===== */
+.site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 70%,transparent);border-bottom:1px solid var(--line)}
+.nav{max-width:var(--max);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px}
+.logo{font-family:var(--head);font-size:1.3rem;letter-spacing:1px;text-decoration:none;white-space:nowrap}
+.nav-list{display:flex;gap:6px;list-style:none;flex-wrap:wrap;align-items:center}
+.nav-list a{text-decoration:none;font-size:.9rem;font-weight:600;padding:7px 14px;border-radius:999px;transition:.25s;display:inline-block}
+.nav-list a:hover{background:var(--line);transform:translateY(-2px)}
+.nav-list a.ativo{background:var(--grad);color:var(--on)}
+.tema-btn,.burger{border:1px solid var(--line);background:var(--card);color:var(--fg);width:42px;height:42px;border-radius:50%;font-size:1.15rem;cursor:pointer;transition:.3s}
+.tema-btn:hover{transform:rotate(25deg) scale(1.1);box-shadow:0 0 18px var(--glow)}
+.burger{display:none}
+@media(max-width:860px){.burger{display:block}.nav-list{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:14px;border-bottom:1px solid var(--line)}.nav-list.aberto{display:flex}}
+
+/* ===== BOTÕES / CARDS ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:600 1rem var(--font);padding:13px 26px;border-radius:999px;background:var(--grad);color:var(--on);text-decoration:none;transition:.3s;box-shadow:0 8px 24px var(--glow)}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn.ghost{background:transparent;color:var(--fg);border:1.5px solid var(--line);box-shadow:none}
+.btn.spotify{background:#1db954;color:#06210f;box-shadow:0 8px 24px rgba(29,185,84,.35)}
+.card,.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;backdrop-filter:blur(10px);transition:transform .3s,box-shadow .3s,border-color .3s}
+.card:hover,.tile:hover{box-shadow:0 14px 34px var(--glow);border-color:var(--a)}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.hero{text-align:center;padding:80px 0 50px}
+.hero h1{font-size:clamp(2.2rem,6vw,4.2rem);margin-bottom:16px}
+.hero p{max-width:640px;margin:0 auto 26px;color:var(--muted);font-size:1.08rem}
+.hero .acoes{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.site-footer{text-align:center;padding:34px 20px;margin-top:50px;border-top:1px solid var(--line);color:var(--muted)}
+.btn-floating{position:fixed;bottom:20px;right:20px;background:var(--grad);color:var(--on);padding:10px 18px;border-radius:999px;font-weight:600;text-decoration:none;box-shadow:0 6px 20px var(--glow);transition:.3s;z-index:40}
+.btn-floating:hover{transform:translateY(-4px)}
+
+/* ===== HOME ===== */
+.bento{display:grid;gap:18px;grid-template-columns:repeat(6,1fr)}
+.bento .tile{text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;min-height:210px;position:relative;overflow:hidden;color:#fff;border:0}
+.bento .tile:nth-child(1){grid-column:span 3;min-height:260px}.bento .tile:nth-child(2){grid-column:span 3;min-height:260px}
+.bento .tile:nth-child(n+3){grid-column:span 2}
+.bento .tile .big{position:absolute;top:10px;right:16px;font-size:5rem;opacity:.9;transition:.4s}
+.bento .tile:hover .big{transform:scale(1.25) rotate(-8deg)}
+.bento h3{font-size:1.7rem}.bento p{opacity:.9;font-size:.95rem}
+.t-ceara{background:linear-gradient(135deg,#000,#444)}.t-jao{background:linear-gradient(135deg,#0a3d9a,#38b6ff)}.t-bk{background:linear-gradient(135deg,#b4161b,#e0a100)}.t-macaco{background:linear-gradient(135deg,#8b5e3c,#3fa34d)}.t-msg{background:linear-gradient(135deg,#ff3ea5,#b388ff)}
+.faixa{overflow:hidden;white-space:nowrap;border-block:1px solid var(--line);padding:14px 0;margin:30px 0;font-family:var(--head);font-size:1.5rem;letter-spacing:3px}
+.faixa span{display:inline-block;animation:faixa 28s linear infinite}
+@keyframes faixa{to{transform:translateX(-50%)}}
+@media(max-width:760px){.bento{grid-template-columns:1fr}.bento .tile,.bento .tile:nth-child(n){grid-column:auto;min-height:170px}}
+
+/* ===== CEARÁ ===== */
+.ceara-hero{text-align:center;padding:60px 0 20px}
+.escudo{width:130px;height:auto;filter:grayscale(1);transition:.4s;cursor:pointer}
+.escudo:hover{filter:none;transform:scale(1.12) rotate(-4deg)}
+.ceara-hero h1{font-size:clamp(2.6rem,8vw,5.5rem);text-transform:uppercase;letter-spacing:3px}
+.jogo{display:grid;gap:20px;grid-template-columns:1fr 1fr}
+@media(max-width:760px){.jogo{grid-template-columns:1fr}}
+.jogo .times{display:flex;align-items:center;justify-content:center;gap:18px;font-family:var(--head);font-size:1.7rem;text-transform:uppercase;text-align:center;margin:12px 0}
+.jogo .vs{opacity:.5;font-size:1.1rem}
+.jogo small{color:var(--muted);display:block}
+.contagem{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.contagem div{background:var(--a);color:var(--on);border-radius:12px;padding:8px 12px;min-width:62px;text-align:center;font-family:var(--head);font-size:1.6rem}
+.contagem small{color:inherit;opacity:.8;font-size:.65rem;font-family:var(--font)}
+.player{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.play-btn{width:84px;height:84px;border-radius:50%;border:0;background:#1db954;color:#06210f;font-size:2.2rem;cursor:pointer;text-decoration:none;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(29,185,84,.6);animation:pulsa 2s infinite;transition:.3s}
+.play-btn:hover{transform:scale(1.1)}
+@keyframes pulsa{70%{box-shadow:0 0 0 22px rgba(29,185,84,0)}100%{box-shadow:0 0 0 0 rgba(29,185,84,0)}}
+.eq{display:flex;gap:4px;align-items:flex-end;height:34px}
+.eq i{width:6px;background:#1db954;border-radius:3px;animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.1s}.eq i:nth-child(5){animation-delay:.3s}
+@keyframes eq{0%,100%{height:6px}50%{height:34px}}
+.curiosidade{cursor:pointer;margin-bottom:14px;border-left:5px solid var(--a)}
+.curiosidade h3{font-size:1.25rem;font-family:var(--font);font-weight:700;display:flex;justify-content:space-between;gap:10px}
+.curiosidade h3::after{content:'＋';transition:.3s}.curiosidade.aberta h3::after{transform:rotate(45deg)}
+.curiosidade p{max-height:0;overflow:hidden;opacity:0;transition:.4s;color:var(--muted)}
+.curiosidade.aberta p{opacity:1;margin-top:10px}
+
+/* ===== ARTISTAS (JÃO / BK) ===== */
+.artista-hero{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center;padding:70px 0 30px}
+.artista-hero h1{font-size:clamp(3rem,10vw,6.5rem);line-height:1;text-transform:uppercase}
+.artista-hero .capa-grande{aspect-ratio:1;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:6rem;box-shadow:0 20px 60px var(--glow);animation:gira 14s linear infinite;position:relative;overflow:hidden}
+.artista-hero .capa-grande img{width:100%;height:100%;object-fit:cover}
+.artista-hero .capa-grande::after{content:"";position:absolute;inset:38%;border-radius:50%;background:var(--bg);border:3px solid var(--line)}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media(max-width:760px){.artista-hero{grid-template-columns:1fr;text-align:center}.artista-hero .capa-grande{max-width:260px;margin:auto}}
+.sorteio{display:grid;grid-template-columns:140px 1fr;gap:22px;align-items:center}
+.sorteio img{width:140px;height:140px;border-radius:14px;object-fit:cover;background:var(--grad);box-shadow:0 10px 30px var(--glow)}
+.sorteio h3{font-size:1.7rem}.sorteio .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.sorteio audio{width:100%;margin-top:12px}
+@media(max-width:560px){.sorteio{grid-template-columns:1fr;text-align:center}.sorteio img{margin:auto}}
+.filtros{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--fg);padding:8px 18px;border-radius:999px;cursor:pointer;font:600 .9rem var(--font);transition:.25s}
+.chip.on,.chip:hover{background:var(--grad);color:var(--on);border-color:transparent}
+.filtros input{flex:1;min-width:180px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 18px;font:inherit}
+.albuns{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.album{padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer}
+.album img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;background:var(--grad);transition:.4s}
+.album:hover img{transform:scale(1.04) rotate(-1.5deg)}
+.album h4{font-size:1rem;line-height:1.3}.album small{color:var(--muted)}
+.album .btn{font-size:.85rem;padding:9px 16px;justify-content:center}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}
+.modal.aberto{display:flex}
+.modal .caixa{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:var(--r);max-width:520px;width:100%;max-height:86vh;overflow:auto;padding:24px;animation:zoom .3s}
+@keyframes zoom{from{transform:scale(.85);opacity:0}}
+.modal ol{padding-left:22px;margin:14px 0}.modal li{padding:5px 0;border-bottom:1px solid var(--line)}.modal li a{text-decoration:none}.modal li a:hover{color:var(--a)}
+.status{color:var(--muted);text-align:center;padding:24px}
+
+/* ===== MACACOS ===== */
+.flips{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.flip{perspective:900px;height:210px;cursor:pointer;background:none;border:0;padding:0}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.flip.virado .in{transform:rotateY(180deg)}
+.flip .f,.flip .v{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);padding:20px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);overflow:auto}
+.flip .f{background:var(--grad);color:var(--on);text-align:center;align-items:center;font-size:1.3rem}
+.flip .f span{font-size:2.6rem}
+.flip .v{background:var(--card);transform:rotateY(180deg);font-size:.92rem;text-align:left}
+.banana-box{text-align:center}
+#banana{font-size:6rem;background:none;border:0;cursor:pointer;transition:.1s;user-select:none;filter:drop-shadow(0 8px 14px var(--glow))}
+#banana:active{transform:scale(.85) rotate(-10deg)}
+.banana-info{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:10px 0 16px;font-weight:600}
+.quiz .op{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 18px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font:inherit;transition:.2s}
+.quiz .op:hover{border-color:var(--a);transform:translateX(5px)}
+.galeria{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.galeria img{width:100%;border-radius:var(--r);cursor:zoom-in;transition:.3s;aspect-ratio:3/4;object-fit:cover}
+.galeria img:hover{transform:scale(1.04) rotate(-1deg)}
+.citacao{font-size:1.3rem;text-align:center;font-style:italic;padding:30px;border-radius:var(--r);background:var(--card);border:1px dashed var(--a)}
+
+/* ===== MENSAGEM ===== */
+.carta-box{max-width:720px;margin:50px auto 0;padding:46px 40px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 20px 60px var(--glow);position:relative}
+.carta-box h1{font-size:3.4rem;text-align:center;margin-bottom:16px;color:var(--a)}
+.carta{font-size:1.12rem;min-height:140px;line-height:1.9}
+.btn-carta{display:block;margin:30px auto;font-size:1.15rem;padding:16px 36px;animation:bate 1.4s ease-in-out infinite}
+@keyframes bate{50%{transform:scale(1.08)}}
+
+/* ===== EFEITOS JS ===== */
+#progresso{position:fixed;top:0;left:0;height:4px;width:0;z-index:9999;background:var(--grad)}
+#confete{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9998}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}.reveal.visivel{opacity:1;transform:none}
+.btn-floating{opacity:0;pointer-events:none;transform:translateY(20px)}.btn-floating.mostrar{opacity:1;pointer-events:auto;transform:none}
+.emoji-pop{position:fixed;pointer-events:none;z-index:9997;font-size:1.6rem;animation:pop 1.1s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--dx),var(--dy)) scale(1.4) rotate(var(--rot));opacity:0}}
+.cursor-digita::after{content:'|';margin-left:2px;animation:pisca .8s steps(1) infinite}
+@keyframes pisca{50%{opacity:0}}
+#brilho{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,var(--glow),transparent 70%);transform:translate(-50%,-50%);transition:opacity .3s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ===== V3: TOPO + DOCK, VIEWS, AJUSTES ===== */
+html{font-size:17px}
+body{padding-bottom:112px}
+.view[hidden]{display:none!important}
+.site-header{position:static;background:none;border:0;backdrop-filter:none}
+.topbar{max-width:var(--max);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 22px}
+.topbar .logo{font-size:1.25rem;font-weight:700}
+.dock{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:4px;padding:8px 10px;border-radius:28px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);box-shadow:0 12px 40px var(--glow);z-index:60;max-width:96vw}
+.dock a{display:flex;flex-direction:column;align-items:center;gap:1px;text-decoration:none;padding:8px 12px;border-radius:20px;font-size:.7rem;font-weight:700;min-width:58px;transition:.25s;color:var(--muted)}
+.dock a span{font-size:1.55rem;line-height:1.2;transition:.25s}
+.dock a:hover{color:var(--fg)}.dock a:hover span{transform:translateY(-7px) scale(1.3)}
+.dock a.ativo{background:var(--grad);color:var(--on)}
+@media(max-width:460px){.dock a{min-width:0;padding:7px 9px;font-size:.62rem}}
+.btn-floating{bottom:104px}
+.escudo{display:block;margin:0 auto 10px;width:150px;height:auto}
+html[data-theme=dark] .escudo{background:#fff;border-radius:26px;padding:12px}
+.ceara-hero{padding:34px 0 10px}
+.jogo .card{display:flex;flex-direction:column;align-items:center;text-align:center}
+.jogo h3{font-family:var(--font);font-size:1.15rem;margin-bottom:4px}
+.jogo .times{flex-wrap:wrap}
+.vs{font-size:1.6rem!important;opacity:1!important}
+.album.vazio img{display:grid}
+.album .sem-capa{aspect-ratio:1;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-size:4rem}
+.artista-hero{padding:40px 0 20px}
+.legenda{color:var(--muted);font-size:.9rem}
+
+/* ===== MACACOS: MAIS LEGÍVEL + MAIS FOFO ===== */
+body.page-macacos{--fg:#2a1503;--muted:#52331a}
+html[data-theme=dark] body.page-macacos{--fg:#fff3de;--muted:#f0d9b0;--card:#2b1e10}
+#v-macacos{font-size:var(--fs,1.2rem);line-height:1.7}
+#v-macacos .sec-sub,#v-macacos p{font-size:1em;color:var(--muted)}
+#v-macacos .sec-title{font-size:2.1em;color:var(--fg)}
+#v-macacos .flip{height:270px}
+#v-macacos .flip .f{font-size:1.15em}
+#v-macacos .flip .f strong{font-size:1.1em}
+#v-macacos .flip .v{font-size:1em;color:var(--fg);background:var(--card);line-height:1.55;justify-content:flex-start}
+#v-macacos .flip .f{background:linear-gradient(135deg,#d2691e,#f4a300);color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.35)}
+#v-macacos .flip:nth-child(3n+2) .f{background:linear-gradient(135deg,#2e9e4f,#8bc34a)}
+#v-macacos .flip:nth-child(3n) .f{background:linear-gradient(135deg,#e91e8c,#ff7aa8)}
+#v-macacos .banana-info{font-size:1.1em;color:var(--fg)}
+.tam{display:inline-flex;gap:6px;margin-left:8px}.tam button{border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;width:44px;height:44px;font:700 1rem var(--font);cursor:pointer}
+.gerador{text-align:center}
+.gerador .gigante{font-size:6em;line-height:1.1;animation:bate 1.6s ease-in-out infinite}
+.gerador h3{font-size:1.6em;color:var(--fg)}
+.corre{position:fixed;z-index:9996;pointer-events:none;font-size:3.2rem;left:0;animation:corre var(--t,5s) linear forwards}
+@keyframes corre{0%{transform:translate(-12vw,0) rotate(0)}20%{transform:translate(18vw,-40px) rotate(-12deg)}40%{transform:translate(40vw,10px) rotate(10deg)}60%{transform:translate(62vw,-45px) rotate(-12deg)}80%{transform:translate(85vw,5px) rotate(10deg)}100%{transform:translate(115vw,-20px) rotate(0)}}
+.balanca{display:inline-block;transform-origin:top center;animation:balanca 2.2s ease-in-out infinite}
+@keyframes balanca{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
+.galeria{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+
+/* ===== V4: NOVA PÁGINA, SENHA, BENTO, DESTAQUES ===== */
+body.page-ana{--bg:#fff4ea;--fg:#3a1f12;--muted:#7a5440;--card:rgba(255,255,255,.78);--line:rgba(232,89,12,.22);--a:#e8590c;--b:#7048e8;--head:'Fredoka',sans-serif;--glow:rgba(232,89,12,.3)}
+html[data-theme=dark] body.page-ana{--bg:#1a1020;--fg:#ffeede;--muted:#e0bfa5;--card:rgba(52,30,58,.65);--line:rgba(255,160,90,.22);--a:#ff8a3d;--b:#a98bff}
+.t-ana{background:linear-gradient(135deg,#e8590c,#7048e8)}
+.bento .tile:nth-child(n){grid-column:span 2;min-height:230px}
+@media(max-width:760px){.bento .tile:nth-child(n){grid-column:auto;min-height:170px}}
+.artista-bloco{padding-top:20px}
+.artista-bloco>h2{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:14px}
+.destaque{position:relative;border:2px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;box-shadow:0 14px 40px var(--glow)}
+.destaque .selo{position:absolute;top:-14px;left:18px;background:var(--grad);color:var(--on);font-weight:700;font-size:.78rem;padding:4px 14px;border-radius:999px}
+.destaque .btn{margin-top:14px;font-size:.9rem;padding:10px 18px}
+.curio h3{font-size:1.1rem;font-family:var(--font);font-weight:700;margin-bottom:6px}
+.curio p{color:var(--muted);font-size:.97rem}
+.curio .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--a);margin-bottom:4px}
+.grid.curios{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.link-inline{color:var(--a);font-weight:700}
+
+/* senha */
+.cadeado{max-width:480px;margin:60px auto 0;text-align:center;padding:40px 30px}
+.cadeado .cad-emoji{font-size:4.2rem;animation:bate 1.8s ease-in-out infinite}
+.cadeado h2{font-size:2.6rem;margin:6px 0}
+.cadeado p{color:var(--muted)}
+.senha-linha{display:flex;gap:10px;margin:22px 0 8px;flex-wrap:wrap}
+.senha-linha input{flex:1;min-width:180px;border:2px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:13px 20px;font:600 1.05rem var(--font);text-align:center;outline:none;transition:.25s}
+.senha-linha input:focus{border-color:var(--a);box-shadow:0 0 0 4px var(--glow)}
+#erro-senha{min-height:1.6em;color:var(--b);font-weight:600}
+.treme{animation:treme .5s}
+@keyframes treme{20%,60%{transform:translateX(-12px)}40%,80%{transform:translateX(12px)}}
+[hidden]{display:none!important}
+
+/* ===== MACACOS: CAPRICHO ===== */
+body.page-macacos{--b:#2f8f43;--sombra:#2f8f43;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='%233fa34d' fill-opacity='.13'%3E%3Cpath d='M22 34c12-22 34-22 42 0-12 17-32 20-42 0z'/%3E%3Cpath d='M96 108c12-22 34-22 42 0-12 17-32 20-42 0z'/%3E%3C/g%3E%3Ctext x='92' y='40' font-size='24' opacity='.22'%3E%F0%9F%8D%8C%3C/text%3E%3Ctext x='16' y='122' font-size='22' opacity='.2'%3E%F0%9F%90%92%3C/text%3E%3C/svg%3E");background-attachment:fixed}
+html[data-theme=dark] body.page-macacos{--b:#6fcf7d;--sombra:#6fcf7d;--card:#2b1e10}
+#v-macacos .card{border:3px solid var(--fg);box-shadow:6px 6px 0 var(--sombra);border-radius:26px;transition:transform .25s,box-shadow .25s}
+#v-macacos .card:hover{box-shadow:9px 9px 0 var(--sombra)}
+#v-macacos .sec-title{display:inline-block;background:var(--b);color:#fff;padding:.12em .65em;border-radius:16px;transform:rotate(-1.5deg);box-shadow:4px 4px 0 var(--a);text-shadow:0 2px 0 rgba(0,0,0,.2);margin-bottom:18px}
+html[data-theme=dark] #v-macacos .sec-title{color:#10200f}
+.mac-hero{position:relative;text-align:center;padding:90px 18px 60px;margin:0 -22px;border-radius:0 0 56px 56px;background:linear-gradient(180deg,#1b5e20 0%,#43a047 55%,#9ccc65 100%);color:#fff;overflow:hidden;box-shadow:0 18px 0 -8px var(--a)}
+html[data-theme=dark] .mac-hero{background:linear-gradient(180deg,#0b2a10 0%,#1d5a25 55%,#3b7d2f 100%)}
+.mac-hero h1{font-size:clamp(2.8rem,9vw,5.8rem);color:#fff;text-shadow:0 5px 0 rgba(0,0,0,.28),0 0 30px rgba(255,255,255,.25);-webkit-text-fill-color:#fff}
+#v-macacos .mac-hero p{color:#f4fff0;font-size:1.05em;max-width:620px;margin:10px auto 22px;position:relative}
+.mac-hero .acoes-hero{position:relative;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center}
+.mac-hero .btn{background:#ffd23f;color:#3b2412;box-shadow:0 6px 0 #c79a00;font-weight:700}
+.mac-hero .btn:active{transform:translateY(4px);box-shadow:0 2px 0 #c79a00}
+.mac-hero .tam button{background:#fff;color:#2a1503;border-color:#fff}
+.mac-hero .rot{color:#fff}
+.cipo{position:absolute;top:0;transform-origin:top center;animation:balanca 3.4s ease-in-out infinite;font-size:3rem;pointer-events:none}
+.cipo::before{content:"";position:absolute;left:50%;bottom:78%;width:4px;height:140px;background:#2e7d32;border-radius:3px;transform:translateX(-50%)}
+.cipo.c1{left:8%}.cipo.c2{left:80%;animation-delay:-1.6s;font-size:2.4rem}.cipo.c3{left:46%;animation-delay:-.8s;font-size:2rem;opacity:.9}
+.folha{position:absolute;top:-30px;font-size:1.8rem;animation:cai linear infinite;pointer-events:none;opacity:.85}
+@keyframes cai{to{transform:translateY(420px) rotate(300deg)}}
+.onda{display:block;width:100%;height:44px;margin:26px 0 -6px;color:var(--b)}
+.ola{margin-top:-1px}
+#v-macacos .gerador,#v-macacos .quiz{background:var(--card)}
+#v-macacos .banana-box{background:linear-gradient(180deg,#fff3c4,#ffe27a);color:#3b2412}
+#v-macacos .banana-box .banana-info{color:#3b2412}
+#v-macacos .banana-box .btn:disabled{opacity:.55;cursor:not-allowed}
+#banana{animation:balanca 2.6s ease-in-out infinite;transform-origin:50% 90%}
+.citacao{border:3px dashed var(--a);position:relative;font-size:1.15em}
+.citacao::before{content:"“";position:absolute;top:-30px;left:18px;font-size:6rem;color:var(--b);font-family:Georgia,serif;line-height:1}
+.galeria{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:26px}
+.polaroid{background:#fff;padding:12px 12px 14px;border-radius:6px;box-shadow:0 10px 26px rgba(0,0,0,.28);transform:rotate(var(--r,0deg));transition:.3s;margin:0;position:relative}
+.polaroid::before{content:"";position:absolute;top:-12px;left:50%;width:84px;height:26px;transform:translateX(-50%) rotate(-3deg);background:rgba(255,226,122,.78);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.polaroid:nth-child(5n+1){--r:-3deg}.polaroid:nth-child(5n+2){--r:2deg}.polaroid:nth-child(5n+3){--r:-1.5deg}.polaroid:nth-child(5n+4){--r:3deg}.polaroid:nth-child(5n){--r:-2.5deg}
+.polaroid:hover{transform:rotate(0) scale(1.07);z-index:5}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:2px;cursor:zoom-in;background:#eee}
+.polaroid figcaption{font-family:'Caveat',cursive;font-size:1.55em;color:#2a1503;text-align:center;margin-top:10px;line-height:1.05}
+.creditos{font-size:.8em;color:var(--muted);margin-top:18px;text-align:center}
+.creditos a{color:var(--a)}
+
+/* ===== V5: DOCK QUE CABE EM QUALQUER TELA ===== */
+.dock{overflow-x:auto;scrollbar-width:none}.dock::-webkit-scrollbar{display:none}
+.dock a{max-width:92px;text-align:center;line-height:1.15;flex:0 0 auto}
+.dock a em{font-style:normal}
+@media(max-width:600px){
+ .dock{gap:2px;padding:6px 8px}
+ .dock a{min-width:0;padding:7px 8px}
+ .dock a:not(.ativo) em{display:none}
+ .dock a.ativo{padding:7px 12px}
+}
+
+.dica{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:8px;padding:10px 16px;border-radius:14px;background:var(--line);font-size:.95rem}
+.dica strong{color:var(--a)}
+
+/* ===== V6: SISTEMA AO VIVO ===== */
+.atualizado{grid-column:1/-1;color:var(--muted);font-size:.85rem;margin-top:4px}
+.atualizado .chip{padding:3px 12px;font-size:.8rem;margin-left:4px}
+.card.aovivo{border-color:#e63946;box-shadow:0 0 0 3px rgba(230,57,70,.25),0 14px 34px var(--glow)}
+.ao-vivo{color:#e63946;font-weight:800;animation:pisca2 1.1s ease-in-out infinite}
+@keyframes pisca2{50%{opacity:.35}}
+.show-card .dias{font-weight:800;color:var(--a);font-size:1.15rem;margin:6px 0}
+.show-card p{margin:2px 0}
+#v-jao .a-show,#v-bk .a-show,#v-ana .a-show{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+ul.shows{list-style:none;margin:10px 0 0}ul.shows li{padding:7px 0;border-bottom:1px solid var(--line);font-size:.92rem}ul.shows li:last-child{border:0}
+.parcerias{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.card.colab{display:flex;gap:14px;align-items:center;padding:14px}
+.card.colab img{width:84px;height:84px;border-radius:12px;object-fit:cover;flex:none;background:var(--grad)}
+.card.colab h4{font-size:1rem;line-height:1.25}.card.colab small{display:block;color:var(--muted);font-size:.8rem}
+.card.colab .btn{margin-top:8px;font-size:.8rem;padding:7px 14px}
+.album.novo .tag{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--a)}
+.modal li small.feat{color:var(--muted);font-size:.82em;display:block}
+
+</style>
+</head>
+<body class="page-home" data-inicial="home">
+<header id="cabecalho"></header>
+<main class="view wrap" id="v-home" data-foot="Feito com 💜 pela Andreza" hidden>
+ <section class="hero">
+  <p id="saudacao" style="font-weight:700;color:var(--a)">🎂</p>
+  <h1 class="grad-text">Oi, Geovanna — este site é um presente meu pra você 💜</h1>
+  <p>Feito com carinho por mim <strong>(Andreza)</strong> e um pouco (MUITA) IA. Aqui tem coisas que você ama: Ceará, Jão, BK, Anavitória, Lagum, macaquinhos e uma surpresa no final.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn" id="vemver" href="#conteudo-home">Vem ver 👇</a><a class="btn ghost" href="#mensagem">💌 Ir pra mensagem</a></div>
+ </section>
+ <div class="faixa"><span>FELIZ ANIVERSÁRIO GEO ✦ VOZÃO ✦ MACAQUINHOS ✦ JÃO ✦ BK ✦ ANAVITÓRIA ✦ LAGUM ✦ </span></div>
+ <section id="conteudo-home"><h2 class="sec-title">O que tem aqui?!</h2><p class="sec-sub">Toca num card (ou usa a barra de baixo) pra explorar. Cada página tem modo claro e noturno 🌙</p>
+  <div class="bento">
+   <a class="tile t-ceara" href="#ceara"><span class="big">⚽</span><h3>Ceará</h3><p>Próximo jogo na tela, escudo, curiosidades e a música do Vozão.</p></a>
+   <a class="tile t-jao" href="#jao"><span class="big">🐺</span><h3>Jão</h3><p>Os 7 álbuns, curiosidades e um sorteio de músicas.</p></a>
+   <a class="tile t-bk" href="#bk"><span class="big">👑</span><h3>BK</h3><p>Os 7 álbuns do rapper.</p></a>
+   <a class="tile t-ana" href="#ana"><span class="big">🎶</span><h3>Anavitória & Lagum</h3><p>Discografias, curiosidades e as músicas que eles fizeram juntos.</p></a>
+   <a class="tile t-macaco" href="#macacos"><span class="big">🐒</span><h3>Macacos</h3><p>Fofos, engraçados, jogo da banana e quiz.</p></a>
+   <a class="tile t-msg" href="#mensagem"><span class="big">💌</span><h3>Mensagem</h3><p>Uma carta só pra você (com senha 🔒).</p></a>
+  </div></section>
+ <section id="home-parcerias" hidden><h2 class="sec-title">🤝 Parcerias entre os artistas</h2><p class="sec-sub">Músicas em que os artistas daqui cantam juntos. Atualiza sozinho quando sair uma nova.</p><div class="grid parcerias a-parcerias"></div></section>
+</main>
+
+<main class="view wrap" id="v-ceara" data-foot="Feito com 🤍🖤 pela Andreza" hidden>
+ <section class="ceara-hero"><img class="escudo" id="escudo" alt="Escudo do Ceará"><h1>Vai, Vozão! ⚫⚪</h1>
+  <p class="sec-sub">Uma parte dedicada ao Ceará, já que não tem como falar de você sem lembrar do vovô.</p></section>
+ <section><div class="card player">
+   <a class="play-btn" id="play" href="https://open.spotify.com/intl-pt/track/26eNvhnX0l39SBerpGjUBA?si=281c46de6d004b56" target="_blank" rel="noopener" aria-label="Tocar Liga pro Zoológico no Spotify">▶</a>
+   <div style="flex:1;min-width:200px"><small style="color:var(--muted)">Toca no Spotify</small><h3 style="font-size:1.7rem">Liga pro Zoológico</h3><p style="color:var(--muted)">Aperta o play pra abrir a música 🎶</p></div>
+   <div class="eq"><i></i><i></i><i></i><i></i><i></i></div></div></section>
+ <section><h2 class="sec-title">📅 Agenda do Vozão</h2><p class="sec-sub">O próximo jogo já aparece aqui, com contagem regressiva, e se atualiza sozinho.</p><div class="jogo" id="proximo"></div></section>
+ <section><h2 class="sec-title">🏆 Curiosidades & Fatos do Vozão</h2><p class="sec-sub">Clica pra abrir cada uma.</p><div class="card curiosidade"><h3>⚫⚪ Por que "Vozão"?</h3><p>O apelido carinhoso vem da longevidade do clube! Fundado em 1914, o Ceará é um dos times mais antigos do estado, e a torcida começou a chamá-lo de "Vovô" como um título de respeito e experiência no futebol cearense.</p></div><div class="card curiosidade"><h3>🎖️ Pentacampeão Histórico</h3><p>De 1915 a 1919, o Ceará conquistou 5 títulos consecutivos do Campeonato Cearense! Foi preciso esperar 89 anos (até 2008) para que a Federação reconhecesse oficialmente esse feito histórico.</p></div><div class="card curiosidade"><h3>⚽ 47 Títulos Estaduais!</h3><p>O Ceará é o MAIOR campeão estadual do Ceará, com incríveis 47 títulos! O último foi em 2025, quando impediu o hexa do rival nos pênaltis. Vamo, Vozão!</p></div><div class="card curiosidade"><h3>🏟️ Castelão: A Casa do Vozão</h3><p>Embora o estádio oficial seja o "Vovozão" (Carlos de Alencar Pinto), o Ceará manda seus jogos no Castelão, que vira "Arena Vozão" em dias de partida e comporta mais de 63 mil torcedores!</p></div><div class="card curiosidade"><h3>🏅 Tri da Copa do Nordeste</h3><p>Em 2015, 2020 e 2023, o Vozão conquistou a Copa do Nordeste! Os dois primeiros títulos foram invictos, mostrando a força do Alvinegro de Porangabuçu na região.</p></div><div class="card curiosidade"><h3>😢 Copa do Brasil de 1994</h3><p>A maior dor da torcida: vice-campeão da Copa do Brasil em 1994, numa final polêmica contra o Grêmio, onde um possível pênalti não foi marcado. Até hoje os torcedores lembram!</p></div><div class="card curiosidade"><h3>🧤 Recorde de Diego</h3><p>Em 2010, o goleiro Diego entrou pra história ao ficar 608 minutos sem sofrer gols na Série A, batendo o recorde nacional que era de 533 minutos!</p></div><div class="card curiosidade"><h3>🎨 Por que preto e branco?</h3><p>O clube nasceu com cores lilás e branco como "Rio Branco FC", mas mudou para preto e branco em 1915 pela dificuldade de encontrar uniformes lilás na época. E ficou essa combinação icônica!</p></div></section>
+</main>
+
+<main class="view wrap" id="v-jao" data-foot="Feito com amor pela Andreza 🐺" hidden>
+ <section class="artista-hero">
+  <div><p style="color:var(--a);font-weight:700" class="a-contagem">carregando…</p><h1 class="grad-text">Jão</h1><p class="sec-sub" style="font-size:1.1rem">Os 7 álbuns, do <strong>Lobos</strong> ao <strong>Memórias Póstumas</strong>, com muita curiosidade e uma parceria especial.</p>
+   <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn a-sortear">🎲 Sortear uma música</button><a class="btn spotify" href="https://open.spotify.com/search/Jão" target="_blank" rel="noopener">▶ Jão no Spotify</a></div></div>
+  <div class="capa-grande a-capa">🎤</div>
+ </section>
+ <section><div class="card sorteio a-sorteio"><div style="grid-column:1/-1;text-align:center"><h3>🎲 Sorteio de músicas</h3><p style="color:var(--muted)">Vale pra todas as músicas dos álbuns daqui da página. Aperta e deixa a sorte escolher!</p></div></div></section>
+ <section><h2 class="sec-title">🎟️ Próximo show do Jão</h2><p class="sec-sub">Atualiza sozinho: quando saírem datas novas, elas aparecem aqui.</p><div class="a-show" data-k="jao"><p class="status">Buscando os próximos shows…</p></div></section><section class="artista-bloco" data-artista="jao"><h2>💿 Álbuns</h2><p class="sec-sub">Clica na capa pra ver as faixas ou no botão verde pra ouvir no Spotify.</p><div class="a-status status">Carregando capas…</div><div class="grid albuns a-albuns"></div></section><section><h2 class="sec-title">🆕 Lançamentos recentes</h2><p class="sec-sub">Singles, EPs e álbuns novos aparecem aqui sozinhos.</p><div class="grid albuns a-novos" data-k="jao"><p class="status">Procurando lançamentos…</p></div></section>
+<section><h2 class="sec-title">⭐ Os favoritos & uma parceria especial</h2><div class="grid curios">
+ <div class="card curio"><span class="tag">Álbum favorito</span><h3>Anti-Herói (2019)</h3><p>Lançado em 10 de outubro de 2019. Todas as 10 faixas foram co-escritas e co-produzidas por Jão. A capa mostra ele caindo do céu após uma flechada, simbolizando vulnerabilidade. Faz parte da série dos quatro elementos (Anti-Herói = Ar).</p></div>
+ <div class="card curio destaque"><span class="selo">🤝 Parceria com o Lagum</span><h3 style="margin-top:6px">Andar Sozinho (Lagum feat. Jão)</h3><p>Faixa do segundo álbum do Lagum, <em>Coisas da Geração</em> (2019), com a participação do Jão. É o encontro de dois nomes queridos da nova música brasileira.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn spotify" target="_blank" rel="noopener" href="https://open.spotify.com/search/Andar%20Sozinho%20Lagum%20J%C3%A3o">▶ Ouvir no Spotify</a><a class="btn ghost" href="#ana">🎸 Conhecer o Lagum</a></div></div>
+ <div class="card curio"><span class="tag">Álbum favorito</span><h3>Pirata (2021)</h3><p>Lançado em 19 de outubro de 2021, fala de recomeços com sonoridade mais leve e experimental. A metáfora do pirata reflete a jornada de Jão em se abrir de forma destemida e honesta. Faz parte da série dos quatro elementos (Pirata = Água).</p></div>
+</div></section>
+<section><h2 class="sec-title">📚 Mais curiosidades</h2><p class="sec-sub">Fatos sobre os outros álbuns e músicas do Jão.</p><div class="grid curios">
+ <div class="card curio"><span class="tag">Álbum</span><h3>Lobos (2018)</h3><p>O disco de estreia, lançado em 17 de agosto de 2018, representa o elemento Terra. A Turnê Lobos rodou de setembro de 2018 a junho de 2019, e o álbum entrou na lista da Rolling Stone Brasil dos 50 melhores discos nacionais de 2018.</p></div>
+ <div class="card curio"><span class="tag">Música</span><h3>Imaturo (2018)</h3><p>Lançada em janeiro de 2018, chegou ao 1º lugar do Viral Brasil do Spotify e ganhou certificação de diamante no Brasil. Foi um dos primeiros grandes sucessos do Jão.</p></div>
+ <div class="card curio"><span class="tag">Conceito</span><h3>Os quatro elementos</h3><p>Lobos (terra), Anti-Herói (ar), Pirata (água) e Super (fogo) formam uma série de quatro álbuns, cada um ligado a um elemento da natureza. Super encerrou o ciclo.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Super (2023)</h3><p>Lançado em 14 de agosto de 2023 e produzido por Jão e Zebu. A faixa-título tem um sample de “Monstros” e faz referência aos outros álbuns. Fez a maior estreia de um álbum na história do Spotify Brasil, com 8,5 milhões de streams em 24 horas.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Supernova (2024)</h3><p>Reedição ampliada do Super, lançada em 11 de junho de 2024, com músicas novas como “Supernova”, “Religião”, “Carnaval” e “Paranoid”.</p></div>
+ <div class="card curio"><span class="tag">Ao vivo</span><h3>Turnê Anti-Herói (Ao Vivo)</h3><p>Álbum ao vivo lançado em 28 de julho de 2020, registrando a turnê do Anti-Herói.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Memórias Póstumas (2026)</h3><p>Quinto álbum de estúdio, lançado em 26 de julho de 2026 depois de uma contagem regressiva no site do Jão. Tem 14 faixas, deixa para trás o conceito dos quatro elementos e fala de ausência, saudade e reconstrução. Os singles são “Catedral” e “Aurora”.</p></div>
+ <div class="card curio"><span class="tag">EP</span><h3>Primeiro Acústico (2018)</h3><p>O primeiro EP do Jão, lançado em 1º de junho de 2018, com versões acústicas e uma música inédita.</p></div>
+ <div class="card curio"><span class="tag">Parcerias</span><h3>Jota Quest e Nando Reis</h3><p>Em 2018 ele participou de “Amor Maior”, do projeto Collab do Jota Quest. Em 2022 gravou “Sim” com Nando Reis, num projeto em que o Nando regrava músicas ao lado de outros artistas.</p></div>
+ <div class="card curio"><span class="tag">Curiosidade</span><h3>O apelido</h3><p>“Jão” não é o nome verdadeiro dele: o apelido nasceu ainda na infância e acabou virando o nome artístico.</p></div>
+</div></section><section><h2 class="sec-title">🤝 Parcerias & feats</h2><p class="sec-sub">Atualiza sozinho: quando sair música nova com participação, ela aparece aqui.</p><div class="grid parcerias a-parcerias"><p class="status">Procurando parcerias…</p></div></section>
+ <div class="modal"><div class="caixa"></div></div>
+</main>
+
+<main class="view wrap" id="v-bk" data-foot="Feito com 👑 pela Andreza" hidden>
+ <section class="artista-hero">
+  <div><p style="color:var(--a);font-weight:700" class="a-contagem">carregando…</p><h1 class="grad-text">BK</h1><p class="sec-sub" style="font-size:1.1rem">O rapper carioca em sete capítulos: de <strong>Castelos & Ruínas</strong> até <strong>Produto do Ambiente</strong>.</p>
+   <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn a-sortear">🎲 Sortear uma música</button><a class="btn spotify" href="https://open.spotify.com/search/BK" target="_blank" rel="noopener">▶ BK no Spotify</a></div></div>
+  <div class="capa-grande a-capa">👑</div>
+ </section>
+ <section><div class="card sorteio a-sorteio"><div style="grid-column:1/-1;text-align:center"><h3>🎲 Sorteio de músicas</h3><p style="color:var(--muted)">Vale pra todas as músicas dos álbuns daqui da página. Aperta e deixa a sorte escolher!</p></div></div></section>
+ <section><h2 class="sec-title">🎟️ Próximo show do BK</h2><p class="sec-sub">Atualiza sozinho: quando saírem datas novas, elas aparecem aqui.</p><div class="a-show" data-k="bk"><p class="status">Buscando os próximos shows…</p></div></section><section class="artista-bloco" data-artista="bk"><h2>💿 Álbuns</h2><p class="sec-sub">Clica na capa pra ver as faixas ou no botão verde pra ouvir no Spotify.</p><div class="a-status status">Carregando capas…</div><div class="grid albuns a-albuns"></div></section><section><h2 class="sec-title">🆕 Lançamentos recentes</h2><p class="sec-sub">Singles, EPs e álbuns novos aparecem aqui sozinhos.</p><div class="grid albuns a-novos" data-k="bk"><p class="status">Procurando lançamentos…</p></div></section><section><h2 class="sec-title">🤝 Parcerias & feats</h2><p class="sec-sub">Atualiza sozinho: quando sair música nova com participação, ela aparece aqui.</p><div class="grid parcerias a-parcerias"><p class="status">Procurando parcerias…</p></div></section>
+ <div class="modal"><div class="caixa"></div></div>
+</main>
+
+<main class="view wrap" id="v-ana" data-foot="Feito com 🌻🎸 pela Andreza" hidden>
+ <section class="artista-hero">
+  <div><p style="color:var(--a);font-weight:700" class="a-contagem">carregando…</p><h1 class="grad-text">Anavitória & Lagum</h1><p class="sec-sub" style="font-size:1.1rem">Duas bandas queridas, uma página só: <strong>Anavitória</strong> e <strong>Lagum</strong>, com discografias completas e as músicas em que elas se encontram.</p>
+   <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn a-sortear">🎲 Sortear uma música</button><a class="btn spotify" href="https://open.spotify.com/search/Anavitória & Lagum" target="_blank" rel="noopener">▶ Anavitória & Lagum no Spotify</a></div></div>
+  <div class="capa-grande a-capa">🎸</div>
+ </section>
+ <section><div class="card sorteio a-sorteio"><div style="grid-column:1/-1;text-align:center"><h3>🎲 Sorteio de músicas</h3><p style="color:var(--muted)">Vale pra todas as músicas dos álbuns daqui da página. Aperta e deixa a sorte escolher!</p></div></div></section>
+ <section><div class="grid curios">
+ <div class="card curio destaque"><span class="selo">🤝 Elas + eles</span><h3 style="margin-top:6px">universo de coisas que eu desconheço</h3><p>Parceria do Anavitória com o Lagum, escrita por Ana Caetano e Pedro Calais, vocalista do Lagum. É o ponto em que as duas histórias se cruzam.</p>
+  <a class="btn spotify" target="_blank" rel="noopener" href="https://open.spotify.com/search/universo%20de%20coisas%20que%20eu%20desconhe%C3%A7o%20Anavit%C3%B3ria%20Lagum">▶ Ouvir no Spotify</a></div>
+ <div class="card curio destaque"><span class="selo">🎤 Lagum + Jão</span><h3 style="margin-top:6px">Andar Sozinho</h3><p>O Lagum também cantou ao lado do Jão nessa faixa do disco <em>Coisas da Geração</em> (2019).</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn spotify" target="_blank" rel="noopener" href="https://open.spotify.com/search/Andar%20Sozinho%20Lagum%20J%C3%A3o">▶ Ouvir</a><a class="btn ghost" href="#jao">Ir pro Jão</a></div></div></div></section>
+<section><h2 class="sec-title">🎟️ Próximo show da Anavitória</h2><p class="sec-sub">Atualiza sozinho: quando saírem datas novas, elas aparecem aqui.</p><div class="a-show" data-k="anavitoria"><p class="status">Buscando os próximos shows…</p></div></section><section class="artista-bloco" data-artista="anavitoria"><h2>🌻 Anavitória</h2><p class="sec-sub">Todos os álbuns do duo. Clica na capa pra ver as faixas.</p><div class="a-status status">Carregando capas…</div><div class="grid albuns a-albuns"></div></section><section><h2 class="sec-title">🆕 Lançamentos recentes</h2><p class="sec-sub">Singles, EPs e álbuns novos aparecem aqui sozinhos.</p><div class="grid albuns a-novos" data-k="anavitoria"><p class="status">Procurando lançamentos…</p></div></section>
+<section><h2 class="sec-title">🌻 Curiosidades do Anavitória</h2><div class="grid curios">
+ <div class="card curio"><span class="tag">Duo</span><h3>Como tudo começou</h3><p>Ana Caetano e Vitória Falcão formam o duo desde 2014. As duas se conheceram no colégio, em Araguaína, no Tocantins, e começaram a cantar juntas por lá.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Anavitória (2016)</h3><p>O disco de estreia foi produzido por Tiago Iorc e trouxe músicas como “Trevo” e “Singular”, que ajudaram a apresentar o duo para o Brasil.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>COR (2021)</h3><p>Lançado de surpresa em 1º de janeiro de 2021, com participações de Lenine e Rita Lee. Levou o Grammy Latino de Melhor Álbum de Pop Contemporâneo em Língua Portuguesa em 2021.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>N</h3><p>Um disco em que o duo canta músicas do Nando Reis, como “por onde andei” e “pra você guardei o amor”.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Esquinas (2024)</h3><p>Quinto álbum de estúdio, lançado em 12 de dezembro de 2024, em comemoração aos 10 anos de carreira e primeiro disco inédito desde o COR. Fala dos 30 anos e flerta com a psicodelia dos anos 70 e o rock dos anos 80.</p></div>
+ <div class="card curio"><span class="tag">Parceria</span><h3>Com Liniker</h3><p>Em 2024 elas participaram do álbum Caju, da Liniker, na faixa “Ao Teu Lado”.</p></div>
+</div></section><section><h2 class="sec-title">🎟️ Próximo show do Lagum</h2><p class="sec-sub">Atualiza sozinho: quando saírem datas novas, elas aparecem aqui.</p><div class="a-show" data-k="lagum"><p class="status">Buscando os próximos shows…</p></div></section><section class="artista-bloco" data-artista="lagum"><h2>🎸 Lagum</h2><p class="sec-sub">Todos os álbuns da banda mineira. Clica na capa pra ver as faixas.</p><div class="a-status status">Carregando capas…</div><div class="grid albuns a-albuns"></div></section><section><h2 class="sec-title">🆕 Lançamentos recentes</h2><p class="sec-sub">Singles, EPs e álbuns novos aparecem aqui sozinhos.</p><div class="grid albuns a-novos" data-k="lagum"><p class="status">Procurando lançamentos…</p></div></section>
+<section><h2 class="sec-title">🎸 Curiosidades do Lagum</h2><div class="grid curios">
+ <div class="card curio"><span class="tag">Banda</span><h3>Direto de Minas</h3><p>O Lagum é uma banda mineira, com Pedro Calais nos vocais, e virou um dos nomes mais queridos da nova geração da música nacional.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Seja o que eu quiser (2016)</h3><p>O primeiro disco. Uma música dele falava de fazer planos para agosto de 2026 e, uma década depois, a banda anunciou a turnê “Lagum em todo lugar”.</p></div>
+ <div class="card curio"><span class="tag">Álbum</span><h3>Coisas da Geração (2019)</h3><p>Segundo álbum, com 14 faixas, incluindo “Oi” e “Andar Sozinho”, com o Jão.</p></div>
+ <div class="card curio"><span class="tag">Prêmios</span><h3>Grammy Latino</h3><p>O Lagum foi indicado ao Grammy Latino duas vezes: em 2022, com “Memórias (de onde eu nunca fui)”, e em 2024, com “Lagum Ao Vivo”, ambos em Melhor Álbum de Rock ou Música Alternativa em Língua Portuguesa.</p></div>
+ <div class="card curio"><span class="tag">Parcerias</span><h3>Será, Deixa e mais</h3><p>Entre os maiores sucessos estão “Será”, com IZA (2020), e “Deixa”, com Ana Gabriela.</p></div>
+ <div class="card curio"><span class="tag">Nova fase</span><h3>2025 e 2026</h3><p>Em 2025 a banda assinou com a The Orchard e anunciou disco inédito e turnê internacional. Em 2026, celebrando 10 anos, veio a turnê “Lagum em todo lugar”.</p></div>
+</div></section><section><h2 class="sec-title">🤝 Parcerias & feats</h2><p class="sec-sub">Atualiza sozinho: quando sair música nova com participação, ela aparece aqui.</p><div class="grid parcerias a-parcerias"><p class="status">Procurando parcerias…</p></div></section>
+ <div class="modal"><div class="caixa"></div></div>
+</main>
+
+<main class="view wrap" id="v-macacos" data-foot="Feito com 🤎 pela Andreza 🐵" hidden>
+ <section class="mac-hero"><span class="folha" style="left:5%;animation-duration:7s;animation-delay:-0s">🍃</span><span class="folha" style="left:18%;animation-duration:9s;animation-delay:-3s">🌿</span><span class="folha" style="left:31%;animation-duration:8s;animation-delay:-5s">🍃</span><span class="folha" style="left:44%;animation-duration:10s;animation-delay:-1s">🍌</span><span class="folha" style="left:57%;animation-duration:7s;animation-delay:-4s">🍃</span><span class="folha" style="left:70%;animation-duration:9s;animation-delay:-2s">🌿</span><span class="folha" style="left:83%;animation-duration:8s;animation-delay:-6s">🍃</span><span class="folha" style="left:93%;animation-duration:11s;animation-delay:-3s">🍌</span><span class="cipo c1">🐒</span><span class="cipo c2">🐵</span><span class="cipo c3">🙈</span>
+  <h1>Macacaquinhos 💕</h1><p>Uma página de macacos pra maior fã de macacos que eu conheço! Aqui tem fofura, bagunça, piada e um império de bananas.</p>
+  <div class="acoes-hero"><button class="btn" id="macacada">🙈 Soltar a macacada!</button><span class="rot">Tamanho do texto:<span class="tam"><button id="aMenos" aria-label="Diminuir texto">A−</button><button id="aMais" aria-label="Aumentar texto">A+</button></span></span></div></section>
+ <section><h2 class="sec-title">📸 Galeria de fofuras</h2><div class="grid galeria"><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Punch_the_Monkey_Ichikawa_City_Zoo_2026_6.png?width=600" alt="Punch e o orangotango de pelúcia: amizade do ano 🧸" loading="lazy" referrerpolicy="no-referrer"><figcaption>Punch e o orangotango de pelúcia: amizade do ano 🧸</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Punch_the_Monkey_Ichikawa_City_Zoo_2026_2.png?width=600" alt="“Não me solta, tá?”" loading="lazy" referrerpolicy="no-referrer"><figcaption>“Não me solta, tá?”</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Punch_the_Monkey_Ichikawa_City_Zoo_2026_9.png?width=600" alt="Abraço apertado e zero vergonha" loading="lazy" referrerpolicy="no-referrer"><figcaption>Abraço apertado e zero vergonha</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Green_monkey_(Chlorocebus_sabaeus)_juvenile_head.jpg?width=600" alt="Quando a conta do restaurante chega 👀" loading="lazy" referrerpolicy="no-referrer"><figcaption>Quando a conta do restaurante chega 👀</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Monkey_with_child.jpg?width=600" alt="Colinho de mãe é o melhor lugar" loading="lazy" referrerpolicy="no-referrer"><figcaption>Colinho de mãe é o melhor lugar</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Monkey-baby-branch-snd.JPG?width=600" alt="Pendurado no galho, sem pressa nenhuma" loading="lazy" referrerpolicy="no-referrer"><figcaption>Pendurado no galho, sem pressa nenhuma</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Baby_Gorilla.JPG?width=600" alt="Bebê gorila: fofura em 4K" loading="lazy" referrerpolicy="no-referrer"><figcaption>Bebê gorila: fofura em 4K</figcaption></figure><figure class="polaroid"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Baby_gorilla_sleeping.jpg?width=600" alt="Soneca merecida de domingo 😴" loading="lazy" referrerpolicy="no-referrer"><figcaption>Soneca merecida de domingo 😴</figcaption></figure><figure class="polaroid"><img src="https://i.pinimg.com/736x/e8/63/23/e86323d53a9f7c9a59757947c86f96bc.jpg" alt="Macaquinho do dia 🐒" loading="lazy" referrerpolicy="no-referrer"><figcaption>Macaquinho do dia 🐒</figcaption></figure><figure class="polaroid"><img src="https://i.pinimg.com/1200x/e9/8e/19/e98e194cacd32c677caa46a1a0b5e1a5.jpg" alt="Eu esperando a banana chegar" loading="lazy" referrerpolicy="no-referrer"><figcaption>Eu esperando a banana chegar</figcaption></figure><figure class="polaroid"><img src="https://i.pinimg.com/736x/0f/9b/cf/0f9bcf3c0fdbf9578f78a1507c45f556.jpg" alt="Fofura nível máximo 💕" loading="lazy" referrerpolicy="no-referrer"><figcaption>Fofura nível máximo 💕</figcaption></figure></div>
+  <p class="creditos">Fotos do Punch: Daiei Onoguchi, via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>. Demais fotos também do Wikimedia Commons, com licenças abertas.</p></section>
+ <section><h2 class="sec-title">🎁 Qual macaco apareceu?</h2><div class="card gerador"><div id="gerado"><div class="gigante">🐵</div><p>Aperta o botão e descubra um macaquinho aleatório!</p></div><button class="btn" id="gerar">🎲 Sortear macaquinho</button></div></section>
+ <section><h2 class="sec-title">🤣 Piada macaquística</h2><div class="card gerador"><p id="piada-txt" style="font-size:1.15em;color:var(--fg);min-height:3.4em">Quer rir? Aperta o botão 👇</p><button class="btn" id="piada">😂 Contar piada</button></div></section>
+ <section><h2 class="sec-title">🌟 Por que amamos tanto os macacaquinhos?</h2><p class="sec-sub">Eles são expressivos, inteligentes, curiosos e cheios de personalidade. Toca nas cartas pra virar!</p><div class="grid flips"><button class="flip"><div class="in"><div class="f"><span>🧠</span><strong>Super Inteligentes!</strong><small>(toca pra virar)</small></div><div class="v">Macacos-prego podem usar pedras para quebrar nozes, assim como ferramentas! Eles são considerados os primatas mais inteligentes das Américas e alguns até superam humanos em testes de memória visual.</div></div></button><button class="flip"><div class="in"><div class="f"><span>👶</span><strong>Papais Cuidadosos</strong><small>(toca pra virar)</small></div><div class="v">Diferente de muitos animais, os macacos machos ajudam a cuidar dos filhotes! Eles carregam os bebês nas costas, protegem e ensinam.</div></div></button><button class="flip"><div class="in"><div class="f"><span>🤝</span><strong>Amizades Verdadeiras</strong><small>(toca pra virar)</small></div><div class="v">Macacos formam amizades duradouras que reduzem o estresse e aumentam a sobrevivência do grupo. Eles se apoiam emocionalmente, exatamente como nós!</div></div></button><button class="flip"><div class="in"><div class="f"><span>🪞</span><strong>Reconhecem a Si Mesmos</strong><small>(toca pra virar)</small></div><div class="v">Alguns macacos conseguem se reconhecer no espelho! Isso é um sinal de autoconsciência, algo muito raro no reino animal.</div></div></button><button class="flip"><div class="in"><div class="f"><span>🗣️</span><strong>Comunicação Complexa</strong><small>(toca pra virar)</small></div><div class="v">Eles usam vocalizações, gestos e expressões faciais para se comunicar! Cada som tem um significado: alertar perigo, chamar para comer ou marcar território.</div></div></button><button class="flip"><div class="in"><div class="f"><span>👆</span><strong>Impressões Digitais Únicas</strong><small>(toca pra virar)</small></div><div class="v">Assim como nós, macacos têm impressões digitais exclusivas! Em 2011, na Índia, as impressões de um macaco foram confundidas com as de um humano em uma investigação policial.</div></div></button><button class="flip"><div class="in"><div class="f"><span>🎭</span><strong>Atores Natos</strong><small>(toca pra virar)</small></div><div class="v">Macacos sabem fingir! Em zoológicos, já fingiram estar presos para ganhar comida extra. Eles planejam, avaliam riscos e até distraem outros para roubar alimentos. Espertinhos!</div></div></button><button class="flip"><div class="in"><div class="f"><span>💕</span><strong>Compartilham Emoções</strong><small>(toca pra virar)</small></div><div class="v">Macacos são empáticos! Eles conseguem entender as emoções de outros e até antecipar o que alguém vai fazer.</div></div></button><button class="flip"><div class="in"><div class="f"><span>🐾</span><strong>Menor do Mundo</strong><small>(toca pra virar)</small></div><div class="v">O sagui-pigmeu (ou sagui-leãozinho) é o menor macaco do mundo! Mede apenas 30cm da cabeça à cauda e pesa 150g. É pura fofura concentrada! 🥺</div></div></button><button class="flip"><div class="in"><div class="f"><span>🌳</span><strong>Guardiões da Floresta</strong><small>(toca pra virar)</small></div><div class="v">Macacos espalham sementes por onde passam, ajudando a florescer novas árvores! Eles são essenciais para o equilíbrio da natureza.</div></div></button></div></section>
+ <section><h2 class="sec-title">🍌 Império das Bananas</h2><div class="card banana-box"><button id="banana" aria-label="Clique na banana">🍌</button>
+  <div class="banana-info"><span>Bananas: <b id="nb">0</b></span><span>Ajudantes: <b id="na">0</b></span></div>
+  <button class="btn" id="comprar">🐒 Contratar ajudante (<span id="custo">25</span> 🍌) · +1 por segundo</button></div></section>
+ <section><h2 class="sec-title">🔮 Que macaco é você?</h2><div class="card quiz" id="quiz"></div></section>
+ <section><div class="card citacao">“Os macacos nos lembram que somos parte da natureza, não senhores dela. Eles nos ensinam sobre família, amizade, inteligência e a importância de cuidar uns dos outros.” 🤎</div></section>
+ <div class="modal" id="lb"><img alt="" style="max-width:92vw;max-height:88vh;border-radius:14px"></div>
+</main>
+
+<!-- PARA MUDAR A CARTA: abra o arquivo editar-carta.html no navegador, escreva a nova carta e cole o resultado no carta.js -->
+<main class="view wrap" id="v-mensagem" data-foot="Feito com carinho 💌 pela sua amiga Andreza 🩷" hidden>
+ <section class="card cadeado" id="cadeado"><div class="cad-emoji">🔒</div><h2>Mensagem trancada</h2><p>Só quem sabe a senha consegue abrir. Digite abaixo 💌</p>
+  <div class="senha-linha"><input id="senha" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Digite a senha…" aria-label="Senha"><button class="btn" id="abrir-senha">Abrir 🔓</button></div><p id="erro-senha"></p>
+  <p class="dica"><strong>Dica da Senha:</strong> <span id="dica-txt">Uma música do Bk que a gente gosta</span></p></section>
+ <section class="carta-box" id="caixa-carta" hidden><h1>Para você</h1><p class="carta"></p></section>
+</main>
+<footer id="rodape"></footer>
+<nav id="dock" aria-label="Navegação"></nav>
+<script src="data/dados.js"></script>
+<script src="carta.js"></script>
+<script>
+/* ==========================================================
+   Presente da Geo v3 — script.js (site de arquivo único: todas as
+   páginas vivem dentro de cada HTML, então os links nunca quebram)
+   ========================================================== */
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const rand = (a, b) => Math.random() * (b - a) + a;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[^a-z0-9]/g, '');
+  const spot = q => 'https://open.spotify.com/search/' + encodeURIComponent(q);
+
+  const PAGES = [['home', '🏠', 'Home', 'Presente da Geo'], ['ceara', '⚽', 'Ceará', 'Vai, Vozão!'], ['jao', '🐺', 'Jão', 'Jão'], ['bk', '👑', 'BK', 'BK'], ['ana', '🎶', 'Anavitória & Lagum', 'Anavitória e Lagum'], ['macacos', '🐒', 'Macacos', 'Macacaquinhos'], ['mensagem', '💌', 'Mensagem', 'Para você']];
+  let page = 'home';
+  const sistema = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+  /* ---------- TOPO + DOCK ---------- */
+  $('#cabecalho').className = 'site-header';
+  $('#cabecalho').innerHTML = `<div class="topbar"><a class="logo" href="#home">🎉 Feliz Aniversário, Geo!</a><button class="tema-btn" id="temaBtn" aria-label="Alternar claro/noturno"></button></div>`;
+  $('#dock').className = 'dock';
+  $('#dock').innerHTML = PAGES.map(([p, e, t]) => `<a href="#${p}" data-p="${p}"><span>${e}</span><em>${t}</em></a>`).join('');
+  document.body.insertAdjacentHTML('beforeend', '<a href="#" class="btn-floating" id="topo">⬆ Topo</a><div id="progresso"></div><div id="brilho"></div>');
+  const btnTema = $('#temaBtn');
+  const pintaTema = () => btnTema.textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙';
+  btnTema.onclick = () => { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = t; store.set('tema-' + page, t); pintaTema(); };
+  const topo = $('#topo'); topo.onclick = e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); };
+  const barra = $('#progresso'), brilho = $('#brilho');
+  addEventListener('scroll', () => { const m = document.documentElement.scrollHeight - innerHeight; barra.style.width = (m > 0 ? scrollY / m * 100 : 0) + '%'; topo.classList.toggle('mostrar', scrollY > 300); }, { passive: true });
+  addEventListener('pointermove', e => { brilho.style.left = e.clientX + 'px'; brilho.style.top = e.clientY + 'px'; }, { passive: true });
+
+  /* ---------- CONFETE / EMOJIS ---------- */
+  const canvas = Object.assign(document.createElement('canvas'), { id: 'confete' }); document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d'); let pecas = [], rodando = false;
+  const ajusta = () => { canvas.width = innerWidth; canvas.height = innerHeight; }; addEventListener('resize', ajusta); ajusta();
+  const CORES = ['#ff3ea5', '#9b59b6', '#b388ff', '#ffd23f', '#3ec6ff', '#ffffff', '#1db954'];
+  function confete(x = innerWidth / 2, y = innerHeight / 3, n = 140) {
+    if (calmo) return;
+    for (let i = 0; i < n; i++) { const a = rand(0, 6.283), v = rand(4, 13); pecas.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5, w: rand(6, 11), h: rand(4, 8), r: rand(0, 6), vr: rand(-.3, .3), cor: CORES[i % CORES.length], vida: rand(90, 170) }); }
+    if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
+  }
+  function quadro() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pecas = pecas.filter(p => p.vida-- > 0 && p.y < canvas.height + 20);
+    for (const p of pecas) { p.vy += .25; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.min(1, p.vida / 40); ctx.fillStyle = p.cor; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); }
+    if (pecas.length) requestAnimationFrame(quadro); else { rodando = false; ctx.clearRect(0, 0, canvas.width, canvas.height); }
+  }
+  const chuva = (dur = 2500) => { const fim = Date.now() + dur; (function p() { confete(rand(0, innerWidth), -10, 6); if (Date.now() < fim) setTimeout(p, 60); })(); };
+  const pop = (x, y, set, n = 6) => {
+    if (calmo) return;
+    for (let i = 0; i < n; i++) { const s = document.createElement('span'); s.className = 'emoji-pop'; s.textContent = set[i % set.length]; s.style.cssText = `left:${x}px;top:${y}px;--dx:${rand(-90, 90)}px;--dy:${rand(-150, -40)}px;--rot:${rand(-40, 40)}deg`; document.body.appendChild(s); setTimeout(() => s.remove(), 1100); }
+  };
+  const EMO = { home: ['💜', '🎉', '✨'], ceara: ['⚽', '🖤', '🤍'], jao: ['🎵', '🎤', '💙'], bk: ['🔥', '🎧', '👑'], ana: ['🎸', '🌻', '💛'], macacos: ['🐒', '🐵', '🍌', '🙈'], mensagem: ['💖', '💌', '🌸'] };
+  document.addEventListener('pointerdown', e => { if (!e.target.closest('a,button,input,.modal,audio,.dock')) pop(e.clientX, e.clientY, EMO[page]); });
+  const kk = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; let ki = 0;
+  addEventListener('keydown', e => { ki = e.keyCode === kk[ki] ? ki + 1 : 0; if (ki === kk.length) { ki = 0; chuva(5000); } });
+
+  /* ---------- REVEAL + TILT ---------- */
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return; const el = en.target; el.classList.add('visivel'); io.unobserve(el);
+    setTimeout(() => { el.classList.remove('reveal', 'visivel'); el.style.transitionDelay = ''; }, 900 + (parseInt(el.style.transitionDelay) || 0));
+  }), { threshold: .1 }) : null;
+  function anima(raiz = document) {
+    $$('.card:not(.ok), .tile:not(.ok), .album:not(.ok), .flip:not(.ok), .citacao:not(.ok)', raiz).forEach((el, i) => {
+      el.classList.add('ok'); if (!io || calmo) return;
+      el.classList.add('reveal'); el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el);
+    });
+    if (!calmo && matchMedia('(hover:hover)').matches) $$('.tile:not(.tilt), .album:not(.tilt)', raiz).forEach(c => {
+      c.classList.add('tilt');
+      c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; c.style.transform = `perspective(700px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateY(-4px)`; });
+      c.addEventListener('pointerleave', () => c.style.transform = '');
+    });
+  }
+  async function digita(el, texto, vel = 40) { el.textContent = ''; el.classList.add('cursor-digita'); for (const ch of texto) { el.textContent += ch; await sleep(vel); } el.classList.remove('cursor-digita'); }
+
+  /* ---------- iTunes via JSONP (funciona até com o arquivo aberto direto) ---------- */
+  let jid = 0;
+  const itunes = url => new Promise((ok, erro) => {
+    const cb = '__it' + (++jid) + Date.now(), s = document.createElement('script');
+    const fim = setTimeout(() => { limpa(); erro(new Error('timeout')); }, 12000);
+    const limpa = () => { clearTimeout(fim); delete window[cb]; s.remove(); };
+    window[cb] = d => { limpa(); ok(d); }; s.onerror = () => { limpa(); erro(new Error('falha')); };
+    s.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb; document.head.appendChild(s);
+  });
+  const capa = (u, n = 600) => (u || '').replace(/\d+x\d+bb/, n + 'x' + n + 'bb');
+
+  /* ================= INICIALIZADORES POR PÁGINA (rodam 1x) ================= */
+  const inits = {}, entradas = {};
+
+  /* ---------- HOME ---------- */
+  inits.home = () => {
+    const sd = $('#saudacao'), hr = new Date().getHours();
+    sd.textContent = `${hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite'}, aniversariante! 🎂`;
+    const f = $('.faixa span'); f.textContent = f.textContent.repeat(2);
+    $('#vemver').onclick = () => confete(innerWidth / 2, innerHeight / 2, 80);
+    const parc = async () => { const n = await carregaParcerias(Object.values(ARTISTAS).map(a => a.nome), $('#home-parcerias .a-parcerias'), 'site', DB().parcerias?.site || []); $('#home-parcerias').hidden = !n; };
+    parc(); entradas.home = () => { if (Date.now() - (entradas.home.t || 0) > 10 * 60e3) { entradas.home.t = Date.now(); parc(); } }; entradas.home.t = Date.now();
+    const h1 = $('#v-home h1'); if (!calmo) { const t = h1.textContent.trim(); h1.style.minHeight = h1.offsetHeight + 'px'; digita(h1, t, 32); }
+  };
+
+  /* ---------- CEARÁ ---------- */
+  /* ================= DADOS AO VIVO (tudo abaixo se atualiza sozinho) ================= */
+  const getJson = (url, ms = 10000) => { const c = new AbortController(), t = setTimeout(() => c.abort(), ms); return fetch(url, { signal: c.signal }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).finally(() => clearTimeout(t)); };
+  const hhmm = d => new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Fortaleza' }).format(d);
+  const mesAno = d => d ? new Intl.DateTimeFormat('pt-BR', { month: 'short', year: 'numeric' }).format(new Date(d)) : '';
+
+  const DB = () => window.DADOS || {};   // dados gerados pelo GitHub (data/dados.js), se existirem
+
+  /* ---------- CEARÁ ---------- */
+  const SVG_ESCUDO = `<svg viewBox="0 0 100 120" class="escudo" role="img" aria-label="Escudo do Ceará"><path d="M50 4 92 18v44c0 28-22 46-42 54C30 108 8 90 8 62V18z" fill="#000" stroke="#fff" stroke-width="4"/><path d="M50 14 82 25v37c0 22-16 36-32 43-16-7-32-21-32-43V25z" fill="#fff"/><text x="50" y="66" text-anchor="middle" font-family="Anton,sans-serif" font-size="30" fill="#000">CSC</text><text x="50" y="88" text-anchor="middle" font-size="12" fill="#000" font-family="Poppins,sans-serif" font-weight="700">1914</text></svg>`;
+  const LIGAS = { 'bra.2': 'Série B', 'bra.1': 'Série A', 'bra.copa_do_brasil': 'Copa do Brasil', 'bra.copa_do_nordeste': 'Copa do Nordeste', 'bra.camp.cearense': 'Campeonato Cearense' };
+  // Reserva: só entra se as fontes ao vivo não responderem. Conferido em 16/11/2026.
+  const BASE_JOGOS = [{ src: 'base', casa: 'CRB', fora: 'Ceará', pc: 1, pf: 1, estado: 'post', liga: 'Série B', rodada: '38', quando: new Date('2026-11-14T16:30:00-03:00'), hora: true, local: 'Estádio Rei Pelé, Maceió (AL)' }];
+  const SEM_TIME = /\(w\)|feminino|women|sub-?\d|\bu-?\d\d/i;
+  async function jogosEspn() {
+    const f = d => d.toISOString().slice(0, 10).replace(/-/g, ''), ini = new Date(Date.now() - 30 * 864e5), fim = new Date(Date.now() + 150 * 864e5);
+    const rs = await Promise.allSettled(Object.keys(LIGAS).map(async slug => {
+      const d = await getJson(`https://site.api.espn.com/apis/site/v2/sports/soccer/${slug}/scoreboard?dates=${f(ini)}-${f(fim)}&limit=500`);
+      return (d.events || []).map(e => {
+        const c = e.competitions?.[0], cp = c?.competitors || [], h = cp.find(x => x.homeAway === 'home'), a = cp.find(x => x.homeAway === 'away'); if (!h || !a) return null;
+        const nome = x => x.team?.displayName || x.team?.name || '';
+        if (!/cear[aá]/i.test(nome(h) + '|' + nome(a)) || SEM_TIME.test(nome(h) + nome(a))) return null;
+        const sc = x => { const s = x.score; return s == null ? null : (typeof s === 'object' ? (s.displayValue ?? s.value) : s); };
+        const t = (c.status || e.status)?.type || {}, pre = t.state === 'pre';
+        return { src: 'espn', casa: nome(h), fora: nome(a), liga: LIGAS[slug], rodada: '', local: c.venue?.fullName || '', hora: true, quando: new Date(e.date), estado: t.state, detalhe: t.shortDetail || t.detail || '', pc: pre ? null : sc(h), pf: pre ? null : sc(a) };
+      }).filter(Boolean);
+    }));
+    if (!rs.some(r => r.status === 'fulfilled')) throw new Error('espn');
+    return rs.flatMap(r => r.status === 'fulfilled' ? r.value : []);
+  }
+  async function jogosTsdb() {
+    const API = 'https://www.thesportsdb.com/api/v1/json/3/';
+    const t = await getJson(API + 'searchteams.php?t=' + encodeURIComponent('Ceará'));
+    const time = (t.teams || []).find(x => x.strSport === 'Soccer' && /cear[aá]/i.test(x.strTeam) && !SEM_TIME.test(x.strTeam + (x.strGender || '')) && /brazil/i.test(x.strCountry || '')); if (!time) return [];
+    const [n, u] = await Promise.all([getJson(API + 'eventsnext.php?id=' + time.idTeam), getJson(API + 'eventslast.php?id=' + time.idTeam)]);
+    const ev = e => ({ src: 'tsdb', casa: e.strHomeTeam, fora: e.strAwayTeam, liga: e.strLeague, rodada: e.strRound, hora: !!e.strTime && e.strTime !== '00:00:00', local: e.strVenue, pc: e.intHomeScore, pf: e.intAwayScore, badge: time.strBadge,
+      quando: e.strTimestamp ? new Date(e.strTimestamp.replace(' ', 'T') + (/[Zz+]|-\d\d:/.test(e.strTimestamp) ? '' : 'Z')) : new Date(e.dateEvent + 'T' + (e.strTime || '12:00:00') + 'Z') });
+    return [...(n.events || []), ...(u.results || [])].map(ev);
+  }
+  inits.ceara = () => {
+    const img = $('#escudo'), fontes = ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Cear%C3%A1_Sporting_Club_logo.svg/1081px-Cear%C3%A1_Sporting_Club_logo.svg.png', 'https://commons.wikimedia.org/wiki/Special:FilePath/Cear%C3%A1_Sporting_Club_logo.svg?width=400']; let fi = 0;
+    img.referrerPolicy = 'no-referrer'; img.onerror = () => { if (++fi < fontes.length) img.src = fontes[fi]; else img.outerHTML = SVG_ESCUDO; }; img.src = fontes[0];
+    img.onclick = () => { confete(); img.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(360deg) scale(1.2)' }, { transform: 'rotate(360deg)' }], { duration: 800 }); };
+    $('#play').onclick = () => confete(innerWidth / 2, innerHeight / 2, 60);
+    $$('#v-ceara .curiosidade').forEach((c, i) => {
+      const p = $('p', c), alt = ab => { c.classList.toggle('aberta', ab); p.style.maxHeight = ab ? p.scrollHeight + 'px' : '0'; };
+      c.tabIndex = 0; c.onclick = () => alt(!c.classList.contains('aberta')); c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); } }); if (i === 0) alt(true);
+    });
+    const box = $('#proximo'); let timer, ultimo = 0, rodando = false;
+    const srvJogos = () => (DB().ceara?.jogos || []).map(e => ({ ...e, src: 'srv', quando: new Date(e.quando) }));
+    const fmt = (d, h) => new Intl.DateTimeFormat('pt-BR', h ? { dateStyle: 'full', timeStyle: 'short', timeZone: 'America/Fortaleza' } : { dateStyle: 'full', timeZone: 'America/Fortaleza' }).format(d);
+    const cartao = (e, titulo, classe = '', extra = '') => `<div class="card ${classe}"><h3>${titulo}</h3><div class="times"><span>${esc(e.casa)}</span><span class="vs">${e.pc != null && e.pc !== '' ? esc(e.pc) + ' x ' + esc(e.pf) : 'x'}</span><span>${esc(e.fora)}</span></div>
+      <small>🏆 ${esc(e.liga || '')}${e.rodada ? ' · rodada ' + esc(e.rodada) : ''}</small><small>📅 ${esc(fmt(e.quando, e.hora))}${e.hora ? ' (Fortaleza)' : ' · horário a definir'}</small>${e.local ? `<small>🏟️ ${esc(e.local)}</small>` : ''}${extra}</div>`;
+    const juntar = lista => { // tira jogos repetidos entre fontes (ESPN > TheSportsDB > reserva)
+      const rank = { espn: 0, srv: 1, tsdb: 2, base: 3 }, out = [], adv = x => norm(/cear[aá]/i.test(x.casa) ? x.fora : x.casa).slice(0, 4);
+      lista.sort((a, b) => rank[a.src] - rank[b.src]).forEach(e => { if (!out.some(o => Math.abs(o.quando - e.quando) < 30 * 36e5 && adv(o) === adv(e))) out.push(e); }); return out;
+    };
+    function monta(lista, fontesTxt) {
+      lista.forEach(e => { e.estado = e.estado || ((e.pc != null && e.pc !== '') ? 'post' : 'pre'); if (e.estado === 'in' && e.quando < Date.now() - 4 * 36e5) e.estado = 'post'; });
+      const u = juntar(lista), aovivo = u.find(e => e.estado === 'in'), prox = u.filter(e => e.estado === 'pre' && e.quando > Date.now() - 2 * 36e5).sort((a, b) => a.quando - b.quando)[0], ult = u.filter(e => e.estado === 'post').sort((a, b) => b.quando - a.quando)[0];
+      const badge = u.find(e => e.badge)?.badge; if (badge && img.tagName === 'IMG' && fi >= fontes.length) img.src = badge;
+      box.innerHTML = (aovivo ? cartao(aovivo, `<span class="ao-vivo">● AO VIVO</span> ${esc(aovivo.detalhe || '')}`, 'aovivo') : '')
+        + (prox ? cartao(prox, '⚽ Próximo jogo', '', '<div class="contagem" id="cont"></div>') : `<div class="card"><h3>⚽ Próximo jogo</h3><p class="status">Ainda não tem jogo marcado. A temporada 2026 acabou, e o próximo aparece aqui sozinho assim que o calendário de 2027 sair. 🖤🤍</p></div>`)
+        + (ult ? cartao(ult, '📊 Último resultado') : '')
+        + `<p class="atualizado" style="grid-column:1/-1">🔄 Atualizado às ${hhmm(new Date())} · fontes: ${esc(fontesTxt)} · <button class="chip" id="atualiza-jogo">Atualizar agora</button></p>`;
+      $('#atualiza-jogo').onclick = () => atualiza(true);
+      clearInterval(window.__tick);
+      if (prox) { const cont = $('#cont'), tick = () => { let d = Math.max(0, prox.quando - Date.now()) / 1000; cont.innerHTML = [['dias', 86400], ['horas', 3600], ['min', 60], ['seg', 1]].map(([n, m]) => { const q = Math.floor(d / m); d -= q * m; return `<div>${String(q).padStart(2, '0')}<br><small>${n}</small></div>`; }).join(''); }; tick(); window.__tick = setInterval(tick, 1000); }
+      anima(box); return { aovivo, prox };
+    }
+    async function atualiza(manual) {
+      if (rodando) return; rodando = true; ultimo = Date.now(); clearTimeout(timer);
+      const [a, b] = await Promise.allSettled([jogosEspn(), jogosTsdb()]), lista = [], fs = [];
+      if (a.status === 'fulfilled' && a.value.length) { lista.push(...a.value); fs.push('ESPN'); }
+      if (b.status === 'fulfilled' && b.value.length) { lista.push(...b.value); fs.push('TheSportsDB'); }
+      const srv = srvJogos(); if (srv.length) fs.push('dados do site (GitHub)');
+      if (!fs.length) fs.push('agenda salva (sem resposta das fontes ao vivo)');
+      const { aovivo, prox } = monta([...lista, ...srv, ...BASE_JOGOS.map(x => ({ ...x }))], fs.join(' + '));
+      rodando = false; const perto = prox && prox.quando - Date.now() < 3 * 36e5;
+      const volta = () => { if (page === 'ceara' && !document.hidden) atualiza(); else timer = setTimeout(volta, 60e3); };
+      timer = setTimeout(volta, aovivo ? 45e3 : perto ? 120e3 : 300e3);
+    }
+    monta([...srvJogos(), ...BASE_JOGOS.map(x => ({ ...x }))], srvJogos().length ? 'dados do site (GitHub)' : 'carregando…'); atualiza();
+    entradas.ceara = () => { if (Date.now() - ultimo > 60e3) atualiza(); };
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && page === 'ceara') entradas.ceara(); });
+  };
+
+  /* ---------- ARTISTAS (Jão, BK, Anavitória, Lagum) ---------- */
+  const igual = (...ks) => k => ks.includes(k);
+  const ARTISTAS = {
+    jao: { nome: 'Jão', albuns: [['Lobos', igual('lobos')], ['Anti-Herói', igual('antiheroi'), '3l3LZovnHa1TmtR1V2fxkP'], ['Pirata', igual('pirata'), '2LeCiUHBSmUMyrclDEEBly'], ['Super', igual('super')],
+      ['Memórias Póstumas', igual('memoriaspostumas')], ['Turnê Anti-Herói (Ao Vivo)', k => k.startsWith('turneantiheroi')], ['Supernova', igual('supernova')]],
+      show: { bit: 'Jão', ingressos: 'https://www.eventim.com.br/artist/jao/jao-turne-memorias-postumas-4252486/', base: [ // Turnê Memórias Póstumas (conferido em 16/11/2026)
+        { dia: '2026-11-21', hora: '21:00', cidade: 'Belo Horizonte, MG', local: 'Ginásio Mineirinho' }, { dia: '2026-11-28', hora: '21:00', cidade: 'Recife, PE', local: 'Ginásio Geraldão' },
+        { dia: '2026-12-12', hora: '21:00', cidade: 'Brasília, DF', local: 'Ginásio Nilson Nelson' }, { dia: '2027-03-19', hora: '', cidade: 'Lisboa, Portugal', local: 'Campo Pequeno' },
+        { dia: '2027-03-27', hora: '20:00', cidade: 'São Paulo, SP', local: 'Nubank Parque' }] } },
+    bk: { nome: 'BK', busca: "BK'", albuns: [['Castelos & Ruínas', k => k.startsWith('castelos')], ['Antes dos Gigantes Chegarem, Vol. 2', k => /^antesdos?gigantes/.test(k) && /2$/.test(k), '2s8fQ4CCEtFzebalX0unvp', ['Antes dos Gigantes Chegarem (feat. Juyè & Luccas Carlos)', 'Adeus (feat. Akira Presidente)', 'Almas (feat. Juyè)']], ['Gigantes', igual('gigantes')],
+      ['O Líder em Movimento', k => k.startsWith('olideremmovimento')], ['ICARUS', k => k.startsWith('icarus')], ['VERÃO CRIMINOSO', k => k.startsWith('veraocriminoso')], ['PRODUTO DO AMBIENTE', k => k.startsWith('produtodoambiente')]], show: { bit: "BK'" } },
+    anavitoria: { nome: 'Anavitória', albuns: null, show: { bit: 'Anavitória' } },
+    lagum: { nome: 'Lagum', albuns: null, show: { bit: 'Lagum' } }
+  };
+  const PAG_ART = { jao: ['jao'], bk: ['bk'], ana: ['anavitoria', 'lagum'] };
+  const chaveAlb = n => norm(n.replace(/\s*-\s*(Single|EP)$/i, '').replace(/\s*[\(\[]\s*(deluxe|expanded|remaster|edi[cç][aã]o)[^\)\]]*[\)\]]/ig, ''));
+  const limpaNome = n => n.replace(/\s*-\s*(Single|EP)$/i, '').replace(/\s*[\(\[]\s*(deluxe|expanded|remaster|edi[cç][aã]o)[^\)\]]*[\)\]]/ig, '');
+  // feats: sempre mostramos o nome de TODOS os convidados de cada faixa
+  const FEAT_RE = /[\(\[]\s*(?:feat\.?|ft\.?|featuring|part\.?|participa[cç][aã]o(?: de)?|com|with)\s+([^\)\]]+)[\)\]]/i;
+  const SEP = /\s*(?:,|&|\bfeat\.?\s|\bft\.?\s|\band\b|\be\b|\bx\b)\s*/i;
+  const toks = s => String(s).split(SEP).map(x => x.trim()).filter(Boolean);
+  const tituloLimpo = n => n.replace(FEAT_RE, '').replace(/\s{2,}/g, ' ').trim();
+  const featsDe = (titulo, artistas, main) => { const set = [], add = n => { if (n.length > 1 && norm(n) !== norm(main) && !set.some(s => norm(s) === norm(n))) set.push(n); }; const m = titulo.match(FEAT_RE); if (m) { toks(m[1]).forEach(add); return set; } toks(artistas || '').forEach(add); return set; };
+  const faixaDe = (titulo, artistas, A, album, capaUrl, previa) => ({ nome: tituloLimpo(titulo), feats: featsDe(titulo, artistas, A.nome), art: A.nome, album, capa: capaUrl, previa });
+
+  async function albumItunes(A, r) {
+    let faixas = []; try { faixas = (await itunes(`https://itunes.apple.com/lookup?id=${r.collectionId}&entity=song&country=BR&limit=200`)).results.filter(x => x.wrapperType === 'track').map(x => faixaDe(x.trackName, x.artistName, A, r.collectionName, capa(x.artworkUrl100), x.previewUrl)); } catch {}
+    return { nome: limpaNome(r.collectionName), capa: capa(r.artworkUrl100), ano: new Date(r.releaseDate).getFullYear(), data: r.releaseDate, faixas };
+  }
+  const deezerFaixas = async (A, id, titulo, cover) => { try { return ((await itunes(`https://api.deezer.com/album/${id}/tracks?limit=100&output=jsonp`)).data || []).map(x => faixaDe(x.title, x.artist?.name, A, titulo, cover, x.preview)); } catch { return []; } };
+  // Procura a capa/faixas em 3 fontes: iTunes → Deezer → Spotify (só capa)
+  async function achaAlbum(A, nome, ok, spId, todos) {
+    let ach = todos.filter(x => ok(chaveAlb(x.collectionName)));
+    for (const termo of [A.busca || A.nome, A.nome]) { if (ach.length) break; try { ach = (await itunes(`https://itunes.apple.com/search?term=${encodeURIComponent(termo + ' ' + nome)}&entity=album&country=BR&limit=15`)).results.filter(x => norm(x.artistName).includes(norm(A.nome).slice(0, 2)) && ok(chaveAlb(x.collectionName))); } catch {} }
+    const r = ach.find(x => !/deluxe/i.test(x.collectionName)) || ach[0]; if (r) return albumItunes(A, r);
+    try {
+      for (const q of [`artist:"${A.nome}" album:"${nome}"`, `${A.nome} ${nome}`]) {
+        const it = ((await itunes(`https://api.deezer.com/search/album?q=${encodeURIComponent(q)}&limit=15&output=jsonp`)).data || []).find(x => ok(chaveAlb(x.title)) && norm(x.artist?.name || '').includes(norm(A.nome).slice(0, 2)));
+        if (it) { const cv = it.cover_xl || it.cover_big || it.cover_medium; return { nome: limpaNome(it.title), capa: cv, faixas: await deezerFaixas(A, it.id, it.title, cv) }; }
+      }
+    } catch {}
+    if (spId) try { const d = await getJson(`https://open.spotify.com/oembed?url=${encodeURIComponent('https://open.spotify.com/album/' + spId)}`); if (d.thumbnail_url) return { nome, capa: d.thumbnail_url, faixas: [] }; } catch {}
+    return null;
+  }
+  async function carregaArtista(k) {
+    const A = ARTISTAS[k]; let todos = [];
+    try {
+      let art; for (const termo of new Set([A.busca || A.nome, A.nome])) { try { art = (await itunes(`https://itunes.apple.com/search?term=${encodeURIComponent(termo)}&entity=musicArtist&country=BR&limit=10`)).results.find(r => norm(r.artistName) === norm(A.nome)); } catch {} if (art) break; }
+      if (art) todos = (await itunes(`https://itunes.apple.com/lookup?id=${art.artistId}&entity=album&country=BR&limit=200`)).results.filter(r => r.wrapperType === 'collection');
+    } catch {}
+    let lista;
+    if (A.albuns) lista = await Promise.all(A.albuns.map(async ([nome, ok, id, fixas]) => {
+      let a = await achaAlbum(A, nome, ok, id, todos); const base = (DB().faixasManuais?.[k] || {})[nome] || fixas;
+      if (base && !a?.faixas?.length) a = { ...(a || { nome }), faixas: base.map(t => faixaDe(t, '', A, nome, a?.capa, null)) };
+      return { ...(a || { nome }), art: k, spId: id };
+    }));
+    else {
+      const vis = new Set(), sel = todos.filter(r => !/\s-\s*(Single|EP)$/i.test(r.collectionName) && (r.trackCount || 0) >= 4).sort((a, b) => (/deluxe/i.test(a.collectionName) - /deluxe/i.test(b.collectionName)) || (new Date(b.releaseDate) - new Date(a.releaseDate)))
+        .filter(r => { const c = chaveAlb(r.collectionName); if (vis.has(c)) return false; vis.add(c); return true; }).sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+      lista = (await Promise.all(sel.map(r => albumItunes(A, r)))).map(a => ({ ...a, art: k }));
+      if (!lista.length) try { // iTunes não respondeu: tenta o Deezer
+        const ar = ((await itunes(`https://api.deezer.com/search/artist?q=${encodeURIComponent(A.nome)}&output=jsonp`)).data || []).find(x => norm(x.name) === norm(A.nome));
+        if (ar) lista = (await Promise.all((((await itunes(`https://api.deezer.com/artist/${ar.id}/albums?limit=100&output=jsonp`)).data) || []).filter(x => x.record_type === 'album').map(async x => ({ nome: limpaNome(x.title), art: k, capa: x.cover_xl || x.cover_big, ano: x.release_date ? +x.release_date.slice(0, 4) : '', data: x.release_date, faixas: await deezerFaixas(A, x.id, x.title, x.cover_xl) })))).sort((a, b) => new Date(b.data) - new Date(a.data));
+      } catch {}
+    }
+    return { lista, todos };
+  }
+
+  /* próximo show (Bandsintown ao vivo + datas conferidas) */
+  const diasAte = dia => Math.round((Date.parse(dia + 'T00:00:00Z') - Date.parse(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Fortaleza' }).format(new Date()) + 'T00:00:00Z')) / 864e5);
+  const fmtDia = (dia, hora) => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(dia + 'T12:00:00Z')) + (hora ? ' · ' + hora : '');
+  async function carregaShow(k, el) {
+    const A = ARTISTAS[k], S = A.show; if (!S || !el) return; let ao = [];
+    try { const d = await getJson(`https://rest.bandsintown.com/artists/${encodeURIComponent(S.bit)}/events?app_id=presente-da-geo&date=upcoming`);
+      if (Array.isArray(d)) ao = d.map(e => ({ dia: (e.datetime || '').slice(0, 10), hora: (e.datetime || '').slice(11, 16) === '00:00' ? '' : (e.datetime || '').slice(11, 16), cidade: [e.venue?.city, e.venue?.region || e.venue?.country].filter(Boolean).join(', '), local: e.venue?.name || '', url: e.url || (e.offers || []).find(o => o.url)?.url || S.ingressos || '' })).filter(e => e.dia);
+    } catch {}
+    const srvS = DB().shows?.[k] || [], vis = new Set(), lista = [...ao, ...srvS, ...(S.base || [])].map(e => ({ ...e, url: e.url || S.ingressos || '' })).filter(e => diasAte(e.dia) >= 0).filter(e => { const c = e.dia + norm(e.cidade).slice(0, 4); if (vis.has(c)) return false; vis.add(c); return true; }).sort((a, b) => a.dia.localeCompare(b.dia));
+    const fontes = [ao.length ? 'Bandsintown' : null, srvS.length ? 'dados do site (GitHub)' : null, S.base ? 'agenda conferida' : null].filter(Boolean).join(' + ') || 'Bandsintown';
+    const rot = n => n === 0 ? 'É HOJE! 🎉' : n === 1 ? 'É amanhã!' : `Faltam ${n} dias`;
+    if (!lista.length) { el.innerHTML = `<div class="card"><p class="status">Nenhum show marcado por enquanto. Quando ${esc(A.nome)} anunciar um, ele aparece aqui sozinho. 🎟️</p></div><p class="atualizado">🔄 Atualizado às ${hhmm(new Date())} · fonte: ${esc(fontes)}</p>`; return; }
+    const p = lista[0];
+    el.innerHTML = `<div class="card destaque show-card"><span class="selo">🎟️ Próximo show</span><h3 style="margin-top:6px">${esc(p.cidade)}</h3><p>${esc(fmtDia(p.dia, p.hora))}</p>${p.local ? `<p>🏟️ ${esc(p.local)}</p>` : ''}<p class="dias">${rot(diasAte(p.dia))}</p>
+      ${p.url ? `<a class="btn" target="_blank" rel="noopener" href="${esc(p.url)}">🎟️ Ingressos</a>` : ''}</div>
+      ${lista.length > 1 ? `<div class="card"><h3 style="font-size:1.1rem">Depois disso</h3><ul class="shows">${lista.slice(1, 8).map(e => `<li><b>${esc(e.cidade)}</b> · ${esc(fmtDia(e.dia, e.hora))}${e.local ? ' · ' + esc(e.local) : ''}</li>`).join('')}</ul></div>` : ''}
+      <p class="atualizado">🔄 Atualizado às ${hhmm(new Date())} · fonte: ${esc(fontes)}</p>`; anima(el);
+  }
+
+  /* parcerias / feats (entre artistas do site ou de cada artista) */
+  async function carregaParcerias(nomes, el, modo, pre = []) {
+    if (!el) return 0;
+    const siteNorm = Object.values(ARTISTAS).map(a => norm(a.nome)), vis = new Set(), out = [];
+    pre.forEach(s => { const c = norm(s.nome) + s.arts.map(norm).sort().join(''); if (!vis.has(c)) { vis.add(c); out.push(s); } });
+    const rs = await Promise.allSettled(nomes.map(n => itunes(`https://itunes.apple.com/search?term=${encodeURIComponent(n)}&entity=song&attribute=artistTerm&country=BR&limit=200`)));
+    rs.forEach(r => { if (r.status !== 'fulfilled') return; (r.value.results || []).filter(x => x.trackName).forEach(x => {
+      const m = x.trackName.match(FEAT_RE), arts = [...new Set([...toks(x.artistName || ''), ...(m ? toks(m[1]) : [])])], nn = arts.map(norm);
+      const ok = modo === 'site' ? siteNorm.filter(s => nn.includes(s)).length >= 2 : (arts.length >= 2 && nomes.some(n => nn.includes(norm(n))));
+      const chave = norm(tituloLimpo(x.trackName)) + [...nn].sort().join(''); if (!ok || vis.has(chave)) return; vis.add(chave);
+      out.push({ nome: tituloLimpo(x.trackName), arts, capa: capa(x.artworkUrl100), data: x.releaseDate });
+    }); });
+    out.sort((a, b) => new Date(b.data) - new Date(a.data));
+    el.innerHTML = out.length ? out.slice(0, 12).map(s => `<article class="card colab"><img src="${esc(s.capa)}" alt="" loading="lazy" onerror="this.style.display='none'"><div><h4>${esc(s.nome)}</h4><small>${esc(s.arts.join(' · '))}</small><small>${esc(mesAno(s.data))}</small>
+      <a class="btn spotify" target="_blank" rel="noopener" href="${esc(spot(s.arts.join(' ') + ' ' + s.nome))}">▶ Ouvir</a></div></article>`).join('') : '<p class="status">Nenhuma parceria encontrada por enquanto. Quando sair uma, ela aparece aqui sozinha 🙂</p>';
+    anima(el); return out.length;
+  }
+
+  function iniciaArtistas(viewKey) {
+    const V = $('#v-' + viewKey), q = s => $(s, V), keys = PAG_ART[viewKey], dados = {}, cats = {}; let pool = [], ultimo = 0;
+    const modal = q('.modal'), caixa = $('.caixa', modal);
+    const linkAlbum = a => a.spId ? 'https://open.spotify.com/album/' + a.spId : spot(`${ARTISTAS[a.art].nome} ${a.nome}`);
+    const feat = f => f.feats?.length ? `feat. ${f.feats.join(', ')}` : '';
+    modal.onclick = e => { if (e.target === modal) modal.classList.remove('aberto'); };
+    addEventListener('keydown', e => e.key === 'Escape' && modal.classList.remove('aberto'));
+    const semCapa = `onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'sem-capa',textContent:'💿'}))"`;
+    const desenha = k => {
+      const cx = $(`[data-artista="${k}"] .a-albuns`, V); if (!cx) return;
+      cx.innerHTML = (dados[k] || []).map((a, i) => `<article class="card album" data-k="${k}" data-i="${i}">${a.capa ? `<img src="${esc(a.capa)}" alt="Capa ${esc(a.nome)}" loading="lazy" ${semCapa}>` : '<div class="sem-capa">💿</div>'}
+        <h4>${esc(a.nome)}</h4><small>${a.ano ? a.ano + ' · ' : ''}${a.faixas?.length ? a.faixas.length + ' faixas' : 'Álbum'}</small>
+        <a class="btn spotify" href="${esc(linkAlbum(a))}" target="_blank" rel="noopener">▶ Ouvir no Spotify</a></article>`).join('') || '<p class="status">Nada por aqui ainda 🤔</p>'; anima(cx);
+    };
+    const desenhaNovos = k => {
+      const cx = $(`.a-novos[data-k="${k}"]`, V); if (!cx) return; const A = ARTISTAS[k], vis = new Set(), lim = Date.now() - 400 * 864e5;
+      const r = (cats[k] || []).filter(x => new Date(x.releaseDate) > lim).sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate)).filter(x => { const c = chaveAlb(x.collectionName); if (vis.has(c)) return false; vis.add(c); return true; }).slice(0, 6);
+      cx.innerHTML = r.length ? r.map(x => `<article class="card album novo"><img src="${esc(capa(x.artworkUrl100))}" alt="" loading="lazy" ${semCapa}><small class="tag">${/-\s*Single$/i.test(x.collectionName) ? 'Single' : /-\s*EP$/i.test(x.collectionName) ? 'EP' : 'Álbum'} · ${esc(mesAno(x.releaseDate))}</small><h4>${esc(limpaNome(x.collectionName))}</h4>
+        <a class="btn spotify" href="${esc(spot(A.nome + ' ' + limpaNome(x.collectionName)))}" target="_blank" rel="noopener">▶ Ouvir</a></article>`).join('') : `<p class="status">Nada novo nos últimos meses. Quando ${esc(A.nome)} lançar, aparece aqui sozinho 🙂</p>`; anima(cx);
+    };
+    V.addEventListener('click', e => {
+      if (e.target.closest('a')) return; const c = e.target.closest('.album'); if (!c || !c.dataset.k) return; const a = dados[c.dataset.k][c.dataset.i], A = ARTISTAS[a.art];
+      caixa.innerHTML = `${a.capa ? `<img src="${esc(a.capa)}" alt="" style="width:100%;border-radius:14px">` : ''}<h3 style="margin-top:12px">${esc(a.nome)}</h3><small>${A.nome}${a.ano ? ' · ' + a.ano : ''}</small>
+        ${a.faixas?.length ? `<ol>${a.faixas.map(f => `<li><a target="_blank" rel="noopener" href="${esc(spot(f.art + ' ' + f.nome))}">${esc(f.nome)}</a>${feat(f) ? `<small class="feat"> ${esc(feat(f))}</small>` : ''}</li>`).join('')}</ol>` : '<p class="status">Faixas indisponíveis agora.</p>'}
+        <a class="btn spotify" target="_blank" rel="noopener" href="${esc(linkAlbum(a))}">▶ Ouvir no Spotify</a>`; modal.classList.add('aberto');
+    });
+    const sorteia = () => {
+      if (!pool.length) { q('.a-sorteio').innerHTML = '<div class="status" style="grid-column:1/-1">As músicas ainda estão carregando… tenta de novo em instantes 🙏</div>'; return; }
+      const f = pick(pool);
+      q('.a-sorteio').innerHTML = `<img src="${esc(f.capa)}" alt=""><div><small>🎲 A sorte escolheu…</small><h3>${esc(f.nome)}</h3><small>${esc(f.art)}${feat(f) ? ' · ' + esc(feat(f)) : ''} · ${esc(limpaNome(f.album))}</small>
+        <div class="acoes"><a class="btn spotify" target="_blank" rel="noopener" href="${esc(spot(f.art + ' ' + f.nome))}">▶ Ouvir no Spotify</a><button class="btn ghost a-de-novo">🎲 Sortear outra</button></div>
+        ${f.previa ? `<audio controls preload="none" src="${esc(f.previa)}"></audio>` : ''}</div>`; q('.a-de-novo').onclick = sorteia; confete(innerWidth / 2, innerHeight / 2, 50);
+    };
+    q('.a-sortear').onclick = sorteia;
+    const mescla = (live, base) => { if (!base?.length) return live; if (!live.length) return base; return live.map(a => { const o = base.find(x => chaveAlb(x.nome) === chaveAlb(a.nome)) || {}; return { ...o, ...a, capa: a.capa || o.capa, ano: a.ano || o.ano, data: a.data || o.data, faixas: a.faixas?.length ? a.faixas : (o.faixas || []) }; }); };
+    async function tudo() {
+      ultimo = Date.now();
+      keys.forEach(k => { const b = DB().artistas?.[k]; if (b?.lista?.length && !dados[k]) { dados[k] = b.lista; cats[k] = b.cats || []; $(`[data-artista="${k}"] .a-status`, V)?.remove(); desenha(k); desenhaNovos(k); } });
+      await Promise.all(keys.map(async k => { const r = await carregaArtista(k), b = DB().artistas?.[k]; dados[k] = mescla(r.lista, b?.lista); cats[k] = r.todos.length ? r.todos : (b?.cats || []); $(`[data-artista="${k}"] .a-status`, V)?.remove(); desenha(k); desenhaNovos(k); }));
+      const todos = keys.flatMap(k => dados[k]), vistos = new Set(); pool = [];
+      todos.forEach(a => (a.faixas || []).forEach(f => { const c = norm(f.nome + f.art); if (!vistos.has(c)) { vistos.add(c); pool.push(f); } }));
+      const novo = todos.filter(a => a.data && a.capa).sort((a, b) => new Date(b.data) - new Date(a.data))[0] || todos.find(a => a.capa);
+      if (novo) q('.a-capa').innerHTML = `<img src="${esc(novo.capa)}" alt="">`;
+      q('.a-contagem').textContent = `${todos.length} álbuns${pool.length ? ' · ' + pool.length + ' músicas' : ''}`;
+    }
+    const extras = () => { $$('.a-show', V).forEach(el => carregaShow(el.dataset.k, el)); carregaParcerias(keys.map(k => ARTISTAS[k].nome), q('.a-parcerias'), 'artista', keys.flatMap(k => DB().parcerias?.[k] || [])); };
+    tudo(); extras();
+    entradas[viewKey] = () => { if (Date.now() - ultimo > 10 * 60e3) { tudo(); extras(); } };
+    setInterval(() => { if (page === viewKey && !document.hidden) entradas[viewKey](); }, 5 * 60e3);
+  }
+  inits.jao = () => iniciaArtistas('jao');
+  inits.bk = () => iniciaArtistas('bk');
+  inits.ana = () => iniciaArtistas('ana');
+
+  /* ---------- MACACOS ---------- */
+  inits.macacos = () => {
+    const V = $('#v-macacos');
+    $$('.flip', V).forEach(f => f.onclick = () => f.classList.toggle('virado'));
+    // tamanho do texto
+    let fs = +store.get('mac-fs') || 1.2; const aplica = () => { V.style.setProperty('--fs', fs + 'rem'); store.set('mac-fs', fs); };
+    $('#aMais').onclick = () => { fs = Math.min(1.8, fs + .1); aplica(); }; $('#aMenos').onclick = () => { fs = Math.max(1, fs - .1); aplica(); }; aplica();
+    // soltar a macacada
+    $('#macacada').onclick = () => { if (calmo) return; for (let i = 0; i < 12; i++) setTimeout(() => { const s = document.createElement('span'); s.className = 'corre'; s.textContent = pick(['🐒', '🐵', '🙈', '🙉', '🙊', '🦧', '🦍']); s.style.top = rand(8, 80) + 'vh'; s.style.setProperty('--t', rand(4, 8) + 's'); document.body.appendChild(s); setTimeout(() => s.remove(), 8200); }, i * 250); };
+    // gerador de macaco
+    const M = [['🐒', 'Macaco-prego', 'Usa pedras como ferramenta pra quebrar coco. Um gênio da marreta!'], ['🕷️', 'Macaco-aranha', 'A cauda dele funciona como uma quinta mão. Multitarefa nível máximo.'], ['🦁', 'Mico-leão-dourado', 'Peludinho laranja que virou símbolo da preservação no Brasil.'], ['📢', 'Bugio', 'O famoso macaco-uivador: o grito dele é ouvido de muito longe. Cantor de chuveiro da mata!'], ['❄️', 'Macaco-japonês', 'Toma banho em fontes termais quando faz frio. Spa de macaco!'], ['🌈', 'Mandril', 'Tem o rosto mais colorido do reino dos macacos. Nasceu pra aparecer.'], ['🦧', 'Orangotango', 'Faz um "ninho" novo pra dormir toda noite. Cama sempre arrumada!'], ['🍌', 'Sagui', 'Pequenininho, curioso e fofo. Cabe na palma da mão de tão miudinho!']];
+    const g = $('#gerado'); $('#gerar').onclick = () => { const [e, n, f] = pick(M); g.innerHTML = `<div class="gigante">${e}</div><h3>${n}</h3><p>${f}</p>`; confete(innerWidth / 2, innerHeight / 2, 40); };
+    // piadas
+    const J = ['O que o macaco disse quando atendeu o telefone? “Alô, ba-NANA?”', 'Por que o macaco é ótimo na academia? Porque já nasce pendurado na barra!', 'Qual é o doce preferido do macaco? Bananada, claro!', 'O que o macaco faz na internet? Navega de galho em galho!', 'Qual é o time de futebol do macaco? O Macaco-nense… ele sempre dribla a banana de casca!', 'O que o macaco desejou pra Geo no aniversário? “Que você nunca fique sem banana nem sem Vozão!” 🎂'];
+    $('#piada').onclick = () => { const p = $('#piada-txt'); p.textContent = pick(J); confete(innerWidth / 2, innerHeight / 2, 25); };
+    // banana clicker
+    let n = +store.get('bananas') || 0, aj = +store.get('ajudantes') || 0;
+    const info = () => { $('#nb').textContent = Math.floor(n); $('#na').textContent = aj; $('#comprar').disabled = n < 25 * (aj + 1); $('#custo').textContent = 25 * (aj + 1); store.set('bananas', Math.floor(n)); store.set('ajudantes', aj); };
+    $('#banana').onclick = e => { n++; pop(e.clientX, e.clientY, ['🍌'], 2); if (n % 50 === 0) confete(innerWidth / 2, innerHeight / 2, 80); info(); };
+    $('#comprar').onclick = () => { const c = 25 * (aj + 1); if (n >= c) { n -= c; aj++; pop(innerWidth / 2, innerHeight / 2, ['🐒']); info(); } };
+    setInterval(() => { if (aj) { n += aj; info(); } }, 1000); info();
+    // quiz
+    const Q = [['Qual é o seu rolê ideal?', ['Bagunça e festa', 'Sossego na natureza', 'Resolver desafios']], ['Como você é com os amigos?', ['Divertida e barulhenta', 'Calma e leal', 'Esperta e estrategista']], ['Qual seu lanche?', ['Banana, claro 🍌', 'Frutas e folhas', 'O que tiver, eu dou um jeito']]];
+    const RES = ['🐒 Macaco-prego', '🦧 Orangotango', '🐵 Chimpanzé'], DESC = ['Esperta, brincalhona e usa até ferramentas pra conseguir o que quer!', 'Tranquila, sábia e muito carinhosa com quem ama.', 'Inteligente, social e sempre um passo à frente!'];
+    const qz = $('#quiz'); let qi = 0, pts = [0, 0, 0];
+    const mostra = () => {
+      if (qi >= Q.length) { const w = pts.indexOf(Math.max(...pts)); confete(); qz.innerHTML = `<h3>Você é: ${RES[w]}!</h3><p>${DESC[w]}</p><button class="btn" id="again">Refazer</button>`; $('#again').onclick = () => { qi = 0; pts = [0, 0, 0]; mostra(); }; return; }
+      qz.innerHTML = `<h3>${Q[qi][0]}</h3>` + Q[qi][1].map((o, i) => `<button class="op" data-r="${i}">${o}</button>`).join('');
+      $$('.op', qz).forEach(b => b.onclick = () => { pts[+b.dataset.r]++; qi++; mostra(); });
+    }; mostra();
+    // galeria
+    const lb = $('#lb'), im = $('img', lb);
+    $$('.galeria img', V).forEach(i => { i.onerror = () => i.closest('figure').remove(); i.onclick = () => { im.src = i.src.replace('width=600', 'width=1200'); lb.classList.add('aberto'); }; });
+    lb.onclick = () => lb.classList.remove('aberto'); addEventListener('keydown', e => e.key === 'Escape' && lb.classList.remove('aberto'));
+  };
+
+  /* ---------- MENSAGEM (com senha) ---------- */
+  const limpaSenha = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/["'“”‘’«»`´]/g, '').replace(/[.!?,;:]+$/g, '').replace(/\s+/g, ' ').trim();
+  const dB64 = b => Uint8Array.from(atob(b), c => c.charCodeAt(0));
+  async function decifraCarta(c, senha) { // AES-GCM + PBKDF2 (a mesma conta do editar-carta.html)
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(limpaSenha(senha)), 'PBKDF2', false, ['deriveKey']);
+    const k = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: dB64(c.s), iterations: 250000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    return new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: dB64(c.i) }, k, dB64(c.d)));
+  }
+  inits.mensagem = () => {
+    const carta = $('.carta'), CF = window.CARTA, inp = $('#senha'), msgErro = $('#erro-senha');
+    if (CF?.dica) $('#dica-txt').textContent = CF.dica;
+    const formata = t => String(t).trim().replace(/\n/g, '<br>');
+    async function abre(html) {
+      $('#cadeado').hidden = true; $('#caixa-carta').hidden = false; confete(innerWidth / 2, innerHeight / 2, 140);
+      carta.innerHTML = html; const nos = [], tx = [], w = document.createTreeWalker(carta, NodeFilter.SHOW_TEXT);
+      while (w.nextNode()) { nos.push(w.currentNode); tx.push(w.currentNode.textContent.replace(/\s+/g, ' ')); }
+      const completo = () => nos.forEach((n, i) => n.textContent = tx[i]);
+      if (calmo) return completo(); nos.forEach(n => n.textContent = '');
+      carta.classList.add('cursor-digita'); let pulou = false; carta.addEventListener('click', () => pulou = true, { once: true });
+      for (let i = 0; i < nos.length && !pulou; i++) for (const ch of tx[i]) { if (pulou) break; nos[i].textContent += ch; await sleep(/[.!?,]/.test(ch) ? 160 : 26); }
+      completo(); carta.classList.remove('cursor-digita'); chuva(); setTimeout(() => confete(innerWidth / 2, innerHeight / 3, 200), 400);
+    }
+    const conteudo = async senha => {
+      if (!CF) throw new Error('sem carta.js');
+      if (CF.cifrado) { if (!window.crypto?.subtle) throw new Error('sem crypto'); try { return formata(await decifraCarta(CF.cifrado, senha)); } catch { return null; } }
+      return CF.senha && limpaSenha(senha) === limpaSenha(CF.senha) ? formata(CF.texto) : null;
+    };
+    const tenta = async () => {
+      let r = null;
+      try { r = await conteudo(inp.value); } catch (e) { msgErro.textContent = e.message === 'sem crypto' ? 'Esse navegador não consegue abrir a carta aqui. Abra o site pelo link do GitHub 💜' : 'Não achei o arquivo carta.js junto do site 😢'; return; }
+      if (r) return abre(r);
+      msgErro.textContent = 'Hmm, essa não é a senha 🙈 Tenta de novo!';
+      const c = $('#cadeado'); c.classList.remove('treme'); void c.offsetWidth; c.classList.add('treme'); inp.select();
+    };
+    $('#abrir-senha').onclick = tenta; inp.addEventListener('keydown', e => { if (e.key === 'Enter') tenta(); }); setTimeout(() => inp.focus(), 100);
+  };
+
+  /* ================= ROTEADOR (links internos: nunca quebram) ================= */
+  const feitos = new Set();
+  function ir(p) {
+    if (!PAGES.some(x => x[0] === p)) p = 'home';
+    page = p; document.body.className = 'page-' + p;
+    $$('.view').forEach(v => v.hidden = v.id !== 'v-' + p);
+    $$('#dock a').forEach(a => a.classList.toggle('ativo', a.dataset.p === p));
+    document.documentElement.dataset.theme = store.get('tema-' + p) || sistema; pintaTema();
+    document.title = PAGES.find(x => x[0] === p)[3] + ' · Presente da Geo';
+    $('#rodape').className = 'site-footer'; $('#rodape').innerHTML = `<p>${$('#v-' + p).dataset.foot}</p>`;
+    scrollTo(0, 0);
+    if (!feitos.has(p)) { feitos.add(p); inits[p]?.(); anima($('#v-' + p)); }
+    entradas[p]?.();
+    if (p === 'home') setTimeout(() => confete(innerWidth / 2, innerHeight / 3, 150), 400);
+  }
+  if (/^https?:/.test(location.protocol)) setInterval(async () => { try { window.DADOS = await getJson('data/dados.json?v=' + Date.now(), 8000); } catch {} }, 5 * 60e3);
+  addEventListener('hashchange', () => ir(location.hash.slice(1)));
+  ir(location.hash.slice(1) || document.body.dataset.inicial || 'home');
+})();
+
+</script>
+</body>
+</html>

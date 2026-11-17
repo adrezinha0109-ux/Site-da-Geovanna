@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>✏️ Editar a carta da Geo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<script src="carta.js"></script>
+<style>
+:root{--rosa:#ff3ea5;--roxo:#9b59b6;--fg:#3b1d33;--bg:#fff0f6;--card:#fff;--linha:#f3c4dc}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;padding:24px 16px 80px}
+main{max-width:820px;margin:auto}
+h1{font-family:'Great Vibes',cursive;font-size:3rem;margin:.2em 0;color:var(--rosa);font-weight:400}
+.card{background:var(--card);border:1px solid var(--linha);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 8px 24px rgba(255,62,165,.08)}
+label{display:block;font-weight:700;margin:14px 0 6px}
+small,.dica{color:#8a5a7a;font-size:.88rem}
+input[type=text],textarea{width:100%;border:2px solid var(--linha);border-radius:14px;padding:12px 14px;font:inherit;color:inherit;background:#fffafd}
+input:focus,textarea:focus{outline:none;border-color:var(--rosa)}
+textarea{min-height:260px;resize:vertical;line-height:1.7}
+.btn{border:0;cursor:pointer;font:700 1rem Poppins,sans-serif;padding:12px 22px;border-radius:999px;background:linear-gradient(135deg,var(--roxo),var(--rosa));color:#fff;margin:6px 8px 6px 0}
+.btn.sec{background:#fff;color:var(--fg);border:2px solid var(--linha)}
+.ok{color:#1b7f3b;font-weight:700}.erro{color:#c0152f;font-weight:700}
+pre{white-space:pre-wrap;word-break:break-all;background:#2a1a28;color:#ffe3f1;padding:14px;border-radius:14px;max-height:260px;overflow:auto;font-size:.8rem}
+.previa{font-size:1.1rem;line-height:1.9;background:#fffafd;border:2px dashed var(--linha);border-radius:14px;padding:18px;min-height:80px}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-weight:600}.check input{margin-top:6px}
+ol{padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Editar a carta 💌</h1>
+  <p>Aqui você escreve a carta nova, a senha e a dica. No final, a página gera o conteúdo do arquivo <b>carta.js</b> pra você colar no lugar do antigo.</p>
+
+  <div class="card" id="abrirAtual" hidden>
+    <b>🔓 A carta atual está protegida.</b>
+    <p class="dica">Pra editar o texto que já existe, digite a senha atual (ou escreva tudo do zero abaixo).</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input type="text" id="senhaAtual" placeholder="Senha atual…" style="flex:1;min-width:200px"><button class="btn sec" id="btnCarregar">Carregar carta atual</button></div>
+    <p id="msgCarregar"></p>
+  </div>
+
+  <div class="card">
+    <label for="senha">🔑 Senha</label>
+    <input type="text" id="senha" autocomplete="off" spellcheck="false" placeholder="Ex.: Bom Te Encontrar">
+    <small>Maiúscula/minúscula e aspas não fazem diferença na hora de digitar no site.</small>
+
+    <label for="dica">💡 Dica da senha</label>
+    <input type="text" id="dica" autocomplete="off" placeholder="Ex.: Uma música do Bk que a gente gosta">
+
+    <label for="texto">💌 A carta</label>
+    <textarea id="texto" placeholder="Escreva aqui…"></textarea>
+    <small>Aperte <b>Enter</b> pra pular linha (linha em branco = novo parágrafo). Negrito: <code>&lt;strong&gt;texto&lt;/strong&gt;</code>. Emojis podem 😊</small>
+
+    <label class="check"><input type="checkbox" id="proteger" checked><span>🔒 Esconder a carta no código (recomendado pro GitHub)<br><small>Marcado: a carta fica embaralhada no arquivo, e só abre com a senha. Desmarcado: qualquer pessoa que abrir o carta.js consegue ler.</small></span></label>
+
+    <button class="btn" id="btnGerar">✨ Gerar carta.js</button>
+    <button class="btn sec" id="btnPrevia">👀 Pré-visualizar</button>
+  </div>
+
+  <div class="card" id="boxPrevia" hidden><b>Como vai aparecer:</b><div class="previa" id="previa"></div></div>
+
+  <div class="card" id="boxSaida" hidden>
+    <b>Pronto! Agora é só 3 passos:</b>
+    <ol>
+      <li>Clique em <b>Copiar</b> (ou <b>Baixar</b>).</li>
+      <li>Abra o arquivo <b>carta.js</b> do site (no GitHub: clique nele → ícone do lápis ✏️).</li>
+      <li>Apague tudo, cole o que você copiou e salve (<b>Commit changes</b>). Em 1 ou 2 minutos o site já mostra a carta nova.</li>
+    </ol>
+    <p id="msgSaida"></p>
+    <button class="btn" id="btnCopiar">📋 Copiar</button><button class="btn sec" id="btnBaixar">⬇️ Baixar carta.js</button>
+    <pre id="saida"></pre>
+  </div>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  // mesma regra de "limpeza" da senha que o site usa
+  const limpa = t => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/["'“”‘’«»`´]/g, '').replace(/[.!?,;:]+$/g, '').replace(/\s+/g, ' ').trim();
+  const b64 = u8 => { let s = ''; u8.forEach(b => s += String.fromCharCode(b)); return btoa(s); };
+  const deb64 = b => Uint8Array.from(atob(b), c => c.charCodeAt(0));
+  const chave = async (senha, salt, usos) => {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(limpa(senha)), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 250000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, usos);
+  };
+  const cifra = async (texto, senha) => {
+    const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+    const d = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await chave(senha, salt, ['encrypt']), new TextEncoder().encode(texto));
+    return { s: b64(salt), i: b64(iv), d: b64(new Uint8Array(d)) };
+  };
+  const decifra = async (c, senha) => new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: deb64(c.i) }, await chave(senha, deb64(c.s), ['decrypt']), deb64(c.d)));
+  const html = t => t.trim().replace(/\n/g, '<br>');
+  const esc = t => t.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+  const js = s => JSON.stringify(s);
+
+  // carrega o que já existe no carta.js
+  const CF = window.CARTA;
+  if (CF) {
+    $('dica').value = CF.dica || '';
+    if (CF.cifrado) $('abrirAtual').hidden = false;
+    else { $('senha').value = CF.senha || ''; $('texto').value = CF.texto || ''; }
+  }
+  $('btnCarregar').onclick = async () => {
+    const m = $('msgCarregar');
+    try { const t = await decifra(CF.cifrado, $('senhaAtual').value); $('texto').value = t; $('senha').value = $('senhaAtual').value.trim(); m.textContent = '✅ Carta atual carregada. É só editar!'; m.className = 'ok'; }
+    catch { m.textContent = 'Senha errada 🙈 (ou esse navegador não abre arquivos protegidos aqui)'; m.className = 'erro'; }
+  };
+  $('btnPrevia').onclick = () => { $('boxPrevia').hidden = false; $('previa').innerHTML = html($('texto').value) || '<small>(a carta está vazia)</small>'; };
+
+  let ultimo = '';
+  $('btnGerar').onclick = async () => {
+    const senha = $('senha').value.trim(), texto = $('texto').value, dica = $('dica').value.trim(), msg = $('msgSaida');
+    $('boxSaida').hidden = false;
+    if (!senha || !texto.trim()) { msg.textContent = 'Preencha a senha e a carta primeiro 💜'; msg.className = 'erro'; $('saida').textContent = ''; return; }
+    let corpo;
+    if ($('proteger').checked) {
+      if (!window.crypto?.subtle) { msg.textContent = 'Esse navegador não deixa proteger a carta aqui. Abra este arquivo pelo Chrome/Edge, ou desmarque a proteção.'; msg.className = 'erro'; return; }
+      const c = await cifra(texto, senha);
+      if ((await decifra(c, senha)) !== texto) { msg.textContent = 'Algo deu errado no teste. Tente de novo.'; msg.className = 'erro'; return; }
+      corpo = `window.CARTA = {\n  dica: ${js(dica)},\n  cifrado: { s: ${js(c.s)}, i: ${js(c.i)}, d: ${js(c.d)} }\n};\n`;
+      msg.textContent = '✅ Carta protegida e testada: abre com a senha que você escolheu.'; msg.className = 'ok';
+    } else {
+      corpo = `window.CARTA = {\n  senha: ${js(senha)},\n  dica: ${js(dica)},\n  texto: \`${esc(texto)}\`\n};\n`;
+      msg.textContent = '✅ Pronto (carta visível no arquivo).'; msg.className = 'ok';
+    }
+    ultimo = `/* Gerado por editar-carta.html. Para mudar a carta, abra editar-carta.html de novo. */\n` + corpo;
+    $('saida').textContent = ultimo;
+  };
+  $('btnCopiar').onclick = async () => { try { await navigator.clipboard.writeText(ultimo); $('msgSaida').textContent = '📋 Copiado!'; $('msgSaida').className = 'ok'; } catch { const r = document.createRange(); r.selectNodeContents($('saida')); getSelection().removeAllRanges(); getSelection().addRange(r); $('msgSaida').textContent = 'Selecionei o texto: aperte Ctrl+C.'; } };
+  $('btnBaixar').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ultimo], { type: 'text/javascript' })); a.download = 'carta.js'; a.click(); };
+})();
+</script>
+</body>
+</html>

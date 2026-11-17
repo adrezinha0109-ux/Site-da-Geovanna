@@ -1,0 +1,5 @@
+/* Gerado por editar-carta.html. Para mudar a carta, abra editar-carta.html de novo. */
+window.CARTA = {
+  dica: "Uma música do Bk que a gente gosta",
+  cifrado: { s: "XbPl0MfEx8LlEVn8M0E7/w==", i: "H5M/Ay6YpR/JE2cs", d: "ZCyOy4fNOafurPwZ6Jq1qTEM6lJz5ligh/dDIjjglpdIuhJENbsL840vK8lYGIZy+20nXIiGDy95HzAXegyEZ89dcEaZ9B2MuxXgqBBD5zlYKkFdviW7nbbKRTlv4Sl0AZB2qadcIVTnqJJ6LbbWqKodbwpcyWR/x43Olg9GjkUeFi31Xt1xi6qNDWw0BXwsT8YxdyjIWg6prIVERaU4YaQAuGwwX0WRBVP5IBNt7uTEBbltiaOTKmkJrh0ghhfYJnWGMt5n57a/VoFd/rSHyIVtYaFdjnwu+ZY39dYp/rOIO1OjRGcY9P3G7CjhalGy4tjjqBVK0jUIbf5v0Yu5s0sEsHgB/PZKt1Al2jJuafZkf8tt4MVPe9C1W4sQwSpgXxwLmsvXNYkjTVM4+13IxqGfddB1NgwNoipO1oSvfCAwxjEUNnEFmHPfA7Xto3+k+3RRFBlf60G+Qj2WbeNdWBQ1RtFSCV/gmMLiudYZ1FEH9w5L/DB88LWDYF6PS3EA9LTGslwfrBElL1yau9LGEFXNmjVn0EmEh7efGfYgYXX+EK7dCjNbx+o3KbPvAqv+KvqDWCfMyMFO16/XNa1fbKnOd20Hee3BjdZMxjCGDjcMK7d2rLOItPs7uuyyCdLeNNwwkEoHuGJwE5JpVncl201IFJsKcjjxdCM++A/UMzDZzDdXzU8l9cj+LXP7iRQWsRv6+3ta0tOhcLD5AMkElZypa/g5NtvaPk3aKQ+dz/0fzcUGH9a12AvxGyi20Ev1By4WE9D5zABvn16P8GnoRC3WEvuN+TChjyWy/ysozcNULu2l4eg0IJ2NV/PuhN7btgWsgUIe2+r9PKDpnlKI/r/7oUkjW2cLpsO65XDIFv3qS61VajuTSm2tICfA75miqYZ6gQG1FnEjoolggRYfFA==" }
+};
